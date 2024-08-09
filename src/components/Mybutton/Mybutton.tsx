@@ -8,6 +8,7 @@ import style from './Mybutton.style';
 type Props = {
   title: string;
   navigateTo?: keyof StackParamList; // navigate işlemi için
+  onPress?: () => void; //
 };
 
 const MyButton = (props: Props) => {
@@ -16,13 +17,13 @@ const MyButton = (props: Props) => {
   function handlePress() {
     if (props.navigateTo) {
       navigation.navigate(props.navigateTo);
-    } else {
-      //sayfa gecisi icin kullanmazsak
     }
   }
 
   return (
-    <TouchableOpacity style={style.button} onPress={handlePress}>
+    <TouchableOpacity
+      style={style.button}
+      onPress={props.onPress || handlePress}>
       <Text style={style.buttonText}>{props.title}</Text>
     </TouchableOpacity>
   );

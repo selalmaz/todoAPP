@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, Touchable} from 'react-native';
-import {SafeAreaView, TouchableOpacity, View} from 'react-native';
+import {View} from 'react-native';
 import style from './TaskCard.style';
 
 type Props = {
