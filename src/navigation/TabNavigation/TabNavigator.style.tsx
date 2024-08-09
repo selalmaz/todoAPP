@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-const styles = StyleSheet.create({
+export default StyleSheet.create({
   tabBar: {
     backgroundColor: '#ffffff',
     elevation: 5,
@@ -9,5 +9,3 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
 });
-
-export default styles;
