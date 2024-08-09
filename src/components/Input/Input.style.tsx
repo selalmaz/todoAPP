@@ -2,13 +2,15 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   container: {
-    padding: 8,
-    margin: 10,
+    width: '100%',
+    backgroundColor: 'white',
     borderRadius: 12,
+    borderColor: '#ddddd',
+    borderWidth: 1,
+    margin: 5,
   },
   Input: {
-    backgroundColor: 'white',
-    fontSize: 18,
+    fontSize: 16,
     color: 'black',
   },
 });

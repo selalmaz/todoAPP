@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import {SafeAreaView, Text, View} from 'react-native';
 import Input from '../../components/Input/Input';
+import MyButton from '../../components/Mybutton/Mybutton';
+import style from './LoginPage.style';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -14,12 +16,14 @@ const LoginPage = () => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={style.container}>
       <Input placeHolder="Mail giriniz" onChange={handleEmailChange}></Input>
       <Input
         placeHolder="sifre giriniz"
         onChange={handlePasswordChange}
         secureTextEntry={true}></Input>
+
+      <MyButton title="Giris Yap" navigateTo="Home"></MyButton>
     </SafeAreaView>
   );
 };
