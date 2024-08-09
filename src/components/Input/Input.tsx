@@ -9,14 +9,14 @@ type Props = {
   secureTextEntry?: boolean; // şfire için opsiyonel prop
 };
 
-const Input: React.FC<Props> = ({placeHolder, onChange, secureTextEntry}) => {
+const Input = (props: Props) => {
   return (
     <View style={style.container}>
       <TextInput
         style={style.Input}
-        placeholder={placeHolder}
-        onChangeText={onChange}
-        secureTextEntry={secureTextEntry}
+        placeholder={props.placeHolder}
+        onChangeText={props.onChange}
+        secureTextEntry={props.secureTextEntry}
       />
     </View>
   );

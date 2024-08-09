@@ -1,10 +1,20 @@
 import React from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import {SafeAreaView, Text, View} from 'react-native';
+import TaskCard from '../../components/TaskCard';
+import style from './TodoListPage.style';
 
 const TodoListPage = () => {
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <Text>LoginPage</Text>
+    <SafeAreaView style={style.container}>
+      <View style={style.innerContainer}>
+        <Text style={style.header}>Görevler</Text>
+        <View style={style.taskContainer}>
+          <TaskCard task="ammo"></TaskCard>
+          <TaskCard task="ammo"></TaskCard>
+          <TaskCard task="ammo"></TaskCard>
+          <TaskCard task="ammo"></TaskCard>
+        </View>
+      </View>
     </SafeAreaView>
   );
 };
