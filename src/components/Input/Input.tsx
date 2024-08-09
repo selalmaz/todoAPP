@@ -5,8 +5,9 @@ import style from './Input.style';
 // props tipi tanımalama
 type Props = {
   placeHolder: string;
+  value?: string;
   onChange: (text: string) => void;
-  secureTextEntry?: boolean; // şfire için opsiyonel prop
+  secureTextEntry?: boolean; // şifre için opsiyonel prop
 };
 
 const Input = (props: Props) => {
@@ -16,7 +17,7 @@ const Input = (props: Props) => {
         style={style.Input}
         placeholder={props.placeHolder}
         onChangeText={props.onChange}
-        secureTextEntry={props.secureTextEntry}
+        secureTextEntry={props.secureTextEntry} // Varsayılan değer
       />
     </View>
   );
