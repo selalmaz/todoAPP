@@ -3,14 +3,16 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   container: {
     width: '100%',
-    backgroundColor: 'white',
+    backgroundColor: '#F0F4F8',
     borderRadius: 12,
-    borderColor: '#ddddd',
+    borderColor: '#E0E6ED',
     borderWidth: 1,
-    margin: 5,
+    marginVertical: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
   },
   Input: {
     fontSize: 16,
-    color: 'black',
+    color: '#333333',
   },
 });
