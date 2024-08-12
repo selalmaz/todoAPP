@@ -15,7 +15,11 @@ export default StyleSheet.create({
   header: {
     fontSize: 24,
     paddingLeft: 10,
-    color: '#111827',
+    color: '#ababab',
     fontWeight: 'bold',
+  },
+
+  background: {
+    flex: 1,
   },
 });

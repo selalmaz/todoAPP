@@ -22,7 +22,7 @@ const TabNavigator = () => {
         name="HomePage"
         component={HomePage}
         options={{
-          tabBarLabel: 'HomePage',
+          tabBarLabel: 'Home',
           tabBarIcon: ({color, size}) => (
             <MaterialCommunityIcons name="home" color={color} size={size} />
           ),
@@ -32,7 +32,7 @@ const TabNavigator = () => {
         name="ToDoListPage"
         component={TodoListPage}
         options={{
-          tabBarLabel: 'ToDoListPage',
+          tabBarLabel: 'Tasks',
           tabBarIcon: ({color, size}) => (
             <MaterialCommunityIcons name="home" color={color} size={size} />
           ),
