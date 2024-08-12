@@ -24,7 +24,11 @@ export default StyleSheet.create({
     height: 24,
     backgroundColor: '#3B82F6',
     opacity: 0.7,
-    borderRadius: 5,
+    marginRight: 15,
+  },
+  checkbox: {
+    width: 24,
+    height: 24,
     marginRight: 15,
   },
 });
