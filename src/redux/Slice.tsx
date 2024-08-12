@@ -32,7 +32,7 @@ const Slice = createSlice({
       state.complete -= 1;
       console.log('Tamamlanan görev sayısı: ' + state.complete);
     },
-    toggleCheck(state, action) {
+    Check(state, action) {
       const task = state.gorevler.find(gorev => gorev.task === action.payload);
       if (task) {
         task.isChecked = !task.isChecked;
@@ -42,5 +42,5 @@ const Slice = createSlice({
 });
 
 export default Slice;
-export const {setTasks, removeTask, completeTask, unCompleteTask, toggleCheck} =
+export const {setTasks, removeTask, completeTask, unCompleteTask, Check} =
   Slice.actions;

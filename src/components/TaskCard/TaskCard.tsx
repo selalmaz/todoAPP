@@ -7,7 +7,7 @@ import {
   removeTask,
   completeTask,
   unCompleteTask,
-  toggleCheck,
+  Check,
 } from '../../redux/Slice';
 
 import CheckBox from 'react-native-check-box';
@@ -39,7 +39,7 @@ const TaskCard = (props: CardProps) => {
     ]);
 
   function handleComplete() {
-    dispact(toggleCheck(props.task));
+    dispact(Check(props.task));
     if (!isChecked) {
       dispact(completeTask());
     } else {
