@@ -28,7 +28,7 @@ export default StyleSheet.create({
   },
   checkedText: {
     textDecorationLine: 'line-through',
-    color: '#888',
+    color: '#C7CCD1',
   },
   deleteButton: {
     backgroundColor: 'white',
