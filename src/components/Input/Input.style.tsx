@@ -5,8 +5,6 @@ export default StyleSheet.create({
     width: '100%',
     backgroundColor: '#F0F4F8',
     borderRadius: 12,
-    borderColor: '#E0E6ED',
-    borderWidth: 1,
     marginVertical: 10,
     paddingHorizontal: 10,
     paddingVertical: 8,

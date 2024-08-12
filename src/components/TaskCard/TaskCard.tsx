@@ -1,15 +1,26 @@
 import React, {useState} from 'react';
-import {Switch, Text, Touchable, TouchableOpacity} from 'react-native';
+import {Alert, Text, TouchableOpacity} from 'react-native';
 import {View} from 'react-native';
 import style from './TaskCard.style';
 import {CardProps} from '../../types';
+import {removeTask} from '../../redux/Slice';
+
 import CheckBox from 'react-native-check-box';
+import {useDispatch} from 'react-redux';
 
 const TaskCard = (props: CardProps) => {
   const [isChecked, setIsChecked] = useState(false);
-  function handleDelete() {
-    console.log('silme tamamlandı');
-  }
+  const dispact = useDispatch();
+
+  const handleDelete = () =>
+    Alert.alert('Alert Title', 'My Alert Msg', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'OK', onPress: () => dispact(removeTask(props.task))},
+    ]);
 
   return (
     <View style={[style.container, isChecked && style.checked]}>

@@ -14,14 +14,17 @@ const Slice = createSlice({
   name: 'taskList',
   initialState,
   reducers: {
-    setGorevler(state, action) {
+    setTasks(state, action) {
       state.gorevler.push(action.payload);
     },
-    setGorev(state, action) {
+    addTask(state, action) {
       state.gorev = action.payload;
+    },
+    removeTask(state, action) {
+      state.gorevler = state.gorevler.filter(gorev => gorev !== action.payload);
     },
   },
 });
 
 export default Slice;
-export const {setGorevler, setGorev} = Slice.actions;
+export const {setTasks, addTask, removeTask} = Slice.actions;

@@ -24,7 +24,9 @@ const TodoListPage = () => {
         source={require('../../assets/images/background.jpg')}
         resizeMode="cover">
         <View style={style.innerContainer}>
-          <Text style={style.header}>Görevler ({gorevler.length})</Text>
+          <Text style={style.header}>
+            Görevler (Aktif görevler:{gorevler.length})
+          </Text>
           <View style={style.taskContainer}>
             <FlatList data={gorevler} renderItem={renderItem}></FlatList>
           </View>
