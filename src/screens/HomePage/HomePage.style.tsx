@@ -17,13 +17,13 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   logoContainer: {
-    marginBottom: 20, // Logo ve diğer elemanlar arasına boşluk ekler
+    marginBottom: 20,
   },
   logo: {
-    marginBottom: 20, // Logo altındaki boşluk
+    marginBottom: 20,
   },
   inputContainer: {
     width: '100%',
-    flexDirection: 'column', // Çocukları dikeyde sıralar
+    flexDirection: 'column',
   },
 });

@@ -41,9 +41,9 @@ const HomePage = () => {
 
         <View style={styles.inputContainer}>
           <Input
-            placeHolder="Task giriniz" // Correct property name is placeholder
-            value={inputValue} // Input değeri state'den al
-            onChange={text => setInputValue(text)} // Input değeri güncelle
+            placeHolder="Task giriniz"
+            value={inputValue}
+            onChange={text => setInputValue(text)}
           />
           <MyButton title="Taski ekle" onPress={onPress} />
         </View>
