@@ -2,28 +2,28 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: 'white',
+    backgroundColor: '#FFFFFF',
     padding: 15,
-    borderRadius: 20,
-    margin: 8,
+    borderRadius: 15,
+    marginVertical: 8,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 20,
+    elevation: 5,
   },
   innerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   task: {
-    maxWidth: '80%',
+    fontSize: 18,
     color: '#1A1A1A',
   },
   Square: {
     width: 24,
     height: 24,
-    backgroundColor: '#55BCF6',
-    opacity: 0.4,
+    backgroundColor: '#3B82F6',
+    opacity: 0.7,
     borderRadius: 5,
     marginRight: 15,
   },

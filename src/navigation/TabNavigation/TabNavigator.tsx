@@ -5,10 +5,13 @@ import HomePage from '../../screens/HomePage';
 import TodoListPage from '../../screens/TodoListPage';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './TabNavigator.style';
+import {useSelector} from 'react-redux';
+import {StateType} from '../../redux/Store';
 
 const Tab = createBottomTabNavigator<TabParamList>();
 
 const TabNavigator = () => {
+  const {gorevler} = useSelector((state: StateType) => state.tasklist);
   return (
     <Tab.Navigator
       screenOptions={{
@@ -22,7 +25,7 @@ const TabNavigator = () => {
         name="HomePage"
         component={HomePage}
         options={{
-          tabBarLabel: 'HomePage',
+          tabBarLabel: 'Home',
           tabBarIcon: ({color, size}) => (
             <MaterialCommunityIcons name="home" color={color} size={size} />
           ),
@@ -32,11 +35,11 @@ const TabNavigator = () => {
         name="ToDoListPage"
         component={TodoListPage}
         options={{
-          tabBarLabel: 'ToDoListPage',
+          tabBarLabel: 'Tasks',
           tabBarIcon: ({color, size}) => (
             <MaterialCommunityIcons name="home" color={color} size={size} />
           ),
-          tabBarBadge: 15,
+          tabBarBadge: gorevler.length,
         }}
       />
     </Tab.Navigator>

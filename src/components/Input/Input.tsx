@@ -15,6 +15,7 @@ const Input = (props: Props) => {
     <View style={style.container}>
       <TextInput
         style={style.Input}
+        value={props.value}
         placeholder={props.placeHolder}
         onChangeText={props.onChange}
         secureTextEntry={props.secureTextEntry} // Varsayılan değer
