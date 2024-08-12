@@ -13,8 +13,12 @@ import {useSelector} from 'react-redux';
 import {StateType} from '../../redux/Store';
 
 const TodoListPage = () => {
-  const {gorevler} = useSelector((state: StateType) => state.tasklist);
-  const renderItem = ({item}: {item: string}) => <TaskCard task={item} />;
+  const {gorevler, complete} = useSelector(
+    (state: StateType) => state.tasklist,
+  );
+  const renderItem = ({item}: {item: {task: string; isChecked: boolean}}) => (
+    <TaskCard task={item.task} />
+  );
   const {width, height} = Dimensions.get('window');
 
   return (
@@ -24,7 +28,9 @@ const TodoListPage = () => {
         source={require('../../assets/images/background.jpg')}
         resizeMode="cover">
         <View style={style.innerContainer}>
-          <Text style={style.header}>Görevler</Text>
+          <Text style={style.header}>
+            Görevler (Aktif görevler:{gorevler.length - complete})
+          </Text>
           <View style={style.taskContainer}>
             <FlatList data={gorevler} renderItem={renderItem}></FlatList>
           </View>

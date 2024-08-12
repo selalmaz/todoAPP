@@ -14,7 +14,7 @@ const StackNavigator = () => {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName="Login">
+        initialRouteName="Home">
         <Stack.Screen name="Login" component={LoginPage} />
         <Stack.Screen name="Home" component={TabNavigator} />
       </Stack.Navigator>
