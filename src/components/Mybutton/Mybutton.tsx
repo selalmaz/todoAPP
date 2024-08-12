@@ -4,14 +4,9 @@ import {Text, TouchableOpacity} from 'react-native';
 import {StackParamList} from '../../types';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import style from './Mybutton.style';
+import {buttonProps} from '../../types';
 
-type Props = {
-  title: string;
-  navigateTo?: keyof StackParamList; // navigate işlemi için
-  onPress?: () => void; //
-};
-
-const MyButton = (props: Props) => {
+const MyButton = (props: buttonProps) => {
   const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
 
   function handlePress() {
