@@ -1,23 +1,26 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-  container: {
+  background: {
     flex: 1,
-    marginTop: 150,
-    backgroundColor: '#f5f5f5',
-    paddingHorizontal: 20,
-  },
-  innerContainer: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
     alignItems: 'center',
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+    width: '100%',
+    height: '100%',
+  },
+  logo: {
     marginBottom: 20,
   },
-  input: {
+  inputContainer: {
     width: '100%',
-    marginBottom: 15,
+    marginTop: 45,
   },
 });
