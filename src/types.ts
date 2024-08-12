@@ -22,4 +22,5 @@ export type buttonProps = {
 
 export type CardProps = {
   task: string;
+  id: string;
 };

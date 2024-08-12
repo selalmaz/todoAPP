@@ -7,7 +7,7 @@ import {
   removeTask,
   completeTask,
   unCompleteTask,
-  toggleCheck,
+  Check,
 } from '../../redux/Slice';
 
 import CheckBox from 'react-native-check-box';
@@ -18,7 +18,7 @@ const TaskCard = (props: CardProps) => {
   const dispact = useDispatch();
 
   const taskState = useSelector((state: StateType) => state.tasklist);
-  const task = taskState.gorevler.find(gorev => gorev.task === props.task);
+  const task = taskState.gorevler.find(gorev => gorev.id === props.id);
   let isChecked: boolean;
   if (task) {
     isChecked = task.isChecked;
@@ -34,12 +34,12 @@ const TaskCard = (props: CardProps) => {
       },
       {
         text: 'Tamam',
-        onPress: () => dispact(removeTask(props.task)),
+        onPress: () => dispact(removeTask(props.id)),
       },
     ]);
 
   function handleComplete() {
-    dispact(toggleCheck(props.task));
+    dispact(Check(props.id));
     if (!isChecked) {
       dispact(completeTask());
     } else {

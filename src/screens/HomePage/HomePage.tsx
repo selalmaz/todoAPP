@@ -11,12 +11,12 @@ import MyButton from '../../components/Mybutton/Mybutton';
 import styles from './HomePage.style';
 import {useDispatch, useSelector} from 'react-redux';
 import {StateType} from '../../redux/Store';
-import {setTasks, addTask} from '../../redux/Slice';
+import {setTasks} from '../../redux/Slice';
 
 const HomePage = () => {
-  const {gorev, gorevler} = useSelector((state: StateType) => state.tasklist);
+  const {gorevler} = useSelector((state: StateType) => state.tasklist);
   const dispatch = useDispatch();
-  const [inputValue, setInputValue] = useState(gorev);
+  const [inputValue, setInputValue] = useState('');
 
   // Ekran boyutlarını almak için
   const {width, height} = Dimensions.get('window');

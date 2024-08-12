@@ -16,9 +16,11 @@ const TodoListPage = () => {
   const {gorevler, complete} = useSelector(
     (state: StateType) => state.tasklist,
   );
-  const renderItem = ({item}: {item: {task: string; isChecked: boolean}}) => (
-    <TaskCard task={item.task} />
-  );
+  const renderItem = ({
+    item,
+  }: {
+    item: {task: string; isChecked: boolean; id: string};
+  }) => <TaskCard task={item.task} id={item.id} />;
   const {width, height} = Dimensions.get('window');
 
   return (
