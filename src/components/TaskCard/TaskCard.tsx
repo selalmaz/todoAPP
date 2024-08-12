@@ -2,12 +2,9 @@ import React from 'react';
 import {Text, Touchable} from 'react-native';
 import {View} from 'react-native';
 import style from './TaskCard.style';
+import {CardProps} from '../../types';
 
-type Props = {
-  task: string;
-};
-
-const TaskCard = (props: Props) => {
+const TaskCard = (props: CardProps) => {
   return (
     <View style={style.container}>
       <View style={style.innerContainer}>

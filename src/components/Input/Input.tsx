@@ -1,16 +1,9 @@
 import React from 'react';
 import {TextInput, View} from 'react-native';
 import style from './Input.style';
+import {inputProps} from '../../types';
 
-// props tipi tanımalama
-type Props = {
-  placeHolder: string;
-  value?: string;
-  onChange: (text: string) => void;
-  secureTextEntry?: boolean; // şifre için opsiyonel prop
-};
-
-const Input = (props: Props) => {
+const Input = (props: inputProps) => {
   return (
     <View style={style.container}>
       <TextInput
