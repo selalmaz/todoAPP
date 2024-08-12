@@ -14,6 +14,9 @@ import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {StackParamList} from '../../types';
 
+const MAIL: string = 'ahmet@deneme.com';
+const PASSWORD: string = '123456789';
+
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,16 +31,13 @@ const LoginPage = () => {
   };
 
   const handleLogin = () => {
-    if (!email.trim()) {
-      Alert.alert('Hata', 'Mail adresini giriniz.');
+    if (email != MAIL) {
+      Alert.alert('Hata', 'Mail adresin YANLIŞ.');
       return;
-    }
-    if (!password.trim()) {
-      Alert.alert('Hata', 'Şifre giriniz.');
+    } else if (password != PASSWORD) {
+      Alert.alert('Hata', 'şifren YANLIŞ.');
       return;
-    }
-
-    navigation.navigate('Home');
+    } else navigation.navigate('Home');
   };
 
   return (

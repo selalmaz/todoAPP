@@ -2,29 +2,45 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: '#FFFFFF',
-    padding: 15,
-    borderRadius: 15,
-    marginVertical: 8,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    elevation: 5,
+    padding: 10,
+    margin: 10,
+    borderRadius: 5,
+    backgroundColor: '#fff',
+    borderColor: '#ddd',
+    borderWidth: 1,
   },
   innerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  checkbox: {
+    marginRight: 10,
   },
   task: {
-    fontSize: 18,
-    color: '#1A1A1A',
+    fontSize: 16,
+    color: '#333',
+    flex: 1,
   },
-  Square: {
-    width: 24,
-    height: 24,
-    backgroundColor: '#3B82F6',
-    opacity: 0.7,
+  checked: {
+    borderColor: 'black',
+    borderWidth: 1,
+  },
+  checkedText: {
+    textDecorationLine: 'line-through',
+    color: '#888',
+  },
+  deleteButton: {
+    backgroundColor: 'white',
     borderRadius: 5,
-    marginRight: 15,
+    width: 30,
+    height: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  deleteButtonText: {
+    color: '#758FBA',
+    fontWeight: 'bold',
+    fontSize: 18,
   },
 });
