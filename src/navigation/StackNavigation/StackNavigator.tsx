@@ -4,6 +4,7 @@ import React from 'react';
 import {StackParamList} from '../../types';
 import LoginPage from '../../screens/LoginPage';
 import TabNavigator from '../TabNavigation/TabNavigator';
+import RegisterPage from '../../screens/RegisterPage';
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
@@ -14,7 +15,8 @@ const StackNavigator = () => {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName="Home">
+        initialRouteName="Login">
+        <Stack.Screen name="Register" component={RegisterPage}></Stack.Screen>
         <Stack.Screen name="Login" component={LoginPage} />
         <Stack.Screen name="Home" component={TabNavigator} />
       </Stack.Navigator>
