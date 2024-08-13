@@ -3,17 +3,17 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {StackParamList} from '../../types';
 
 export const createUser = (
-  EMAIL: string,
-  PASSWORD: string,
+  email: string,
+  password: string,
   navigation: NativeStackNavigationProp<StackParamList>,
 ) => {
-  if (!EMAIL || !PASSWORD) {
+  if (!email || !password) {
     console.log('MAIL VEYA SİFRE BOS !!!');
     return;
   }
-  if (EMAIL != null && PASSWORD != null) {
+  if (email != null && password != null) {
     auth()
-      .createUserWithEmailAndPassword(EMAIL, PASSWORD)
+      .createUserWithEmailAndPassword(email, password)
       .then(res => {
         console.log(res);
         navigation.navigate('Home');
@@ -23,19 +23,32 @@ export const createUser = (
   }
 };
 export const signInUser = (
-  EMAIL: string,
-  PASSWORD: string,
+  email: string,
+  password: string,
   navigation: NativeStackNavigationProp<StackParamList>,
 ) => {
-  if (!EMAIL || !PASSWORD) {
+  if (!email || !password) {
     console.log('MAIL VEYA SİFRE BOS !!!');
     return;
   }
   auth()
-    .signInWithEmailAndPassword(EMAIL, PASSWORD)
+    .signInWithEmailAndPassword(email, password)
     .then(res => {
-      console.log(res);
+      console.log('giris basarili ' + res.user.email);
       navigation.navigate('Home');
+    })
+    .catch(err => console.log(err));
+};
+
+export const signOutUser = (
+  navigation: NativeStackNavigationProp<StackParamList>,
+) => {
+  console.log('cikis yapilan hesap ' + auth().currentUser?.email);
+  auth()
+    .signOut()
+    .then(res => {
+      console.log('cikis basarili\naktif hesap: ' + auth().currentUser);
+      navigation.navigate('Login');
     })
     .catch(err => console.log(err));
 };

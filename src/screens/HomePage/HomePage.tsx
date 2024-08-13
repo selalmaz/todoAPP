@@ -12,17 +12,25 @@ import styles from './HomePage.style';
 import {useDispatch, useSelector} from 'react-redux';
 import {StateType} from '../../redux/Store';
 import {setTasks} from '../../redux/Slice';
+import {signOutUser} from '../../services/firebase/auth';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {StackParamList} from '../../types';
 
 const HomePage = () => {
   const {gorevler} = useSelector((state: StateType) => state.tasklist);
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState('');
+  const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
 
   // Ekran boyutlarını almak için
   const {width, height} = Dimensions.get('window');
   function onPress() {
     dispatch(setTasks(inputValue));
     setInputValue(''); // Input değerini sıfırla
+  }
+  function signOut() {
+    signOutUser(navigation);
   }
 
   return (
@@ -46,6 +54,7 @@ const HomePage = () => {
             onChange={text => setInputValue(text)}
           />
           <MyButton title="Taski ekle" onPress={onPress} />
+          <MyButton title="Çıkış Yap" onPress={signOut}></MyButton>
         </View>
       </SafeAreaView>
     </ImageBackground>
