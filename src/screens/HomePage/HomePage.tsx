@@ -9,24 +9,21 @@ import {
 import Input from '../../components/Input';
 import MyButton from '../../components/Mybutton/Mybutton';
 import styles from './HomePage.style';
-import {useDispatch, useSelector} from 'react-redux';
-import {StateType} from '../../redux/Store';
-import {setTasks} from '../../redux/Slice';
 import {signOutUser} from '../../services/firebase/auth';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {StackParamList} from '../../types';
+import {adDB} from '../../services/firebase/database';
 
 const HomePage = () => {
-  const {gorevler} = useSelector((state: StateType) => state.tasklist);
-  const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState('');
   const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
 
   // Ekran boyutlarını almak için
   const {width, height} = Dimensions.get('window');
   function onPress() {
-    dispatch(setTasks(inputValue));
+    adDB(inputValue);
+    //dispatch(setTasks(inputValue));
     setInputValue(''); // Input değerini sıfırla
   }
   function signOut() {

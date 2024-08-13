@@ -25,3 +25,9 @@ export type CardProps = {
   task: string;
   id: string;
 };
+
+export type TaskType = {
+  id: string;
+  task: string;
+  isChecked: boolean;
+};

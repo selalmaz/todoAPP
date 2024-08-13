@@ -47,7 +47,7 @@ export const signOutUser = (
   auth()
     .signOut()
     .then(res => {
-      console.log('cikis basarili\naktif hesap: ' + auth().currentUser);
+      console.log('cikis basarili\naktif hesap: ' + auth().currentUser + res);
       navigation.navigate('Login');
     })
     .catch(err => console.log(err));

@@ -9,9 +9,6 @@ import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {StackParamList} from '../../types';
 
-const EMAIL = 'ahmetsllmz@gmail.com';
-const PASSWORD = '123456789';
-
 const RegisterPage = () => {
   const {width, height} = Dimensions.get('window');
   const [email, setEmail] = useState('');
