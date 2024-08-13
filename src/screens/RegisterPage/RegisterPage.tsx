@@ -8,9 +8,7 @@ import {createUser} from '../../services/firebase/auth';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {StackParamList} from '../../types';
-import {useDispatch, useSelector} from 'react-redux';
-import {StateType} from '../../redux/Store';
-import {ActivityIndicator} from 'react-native';
+import {useDispatch} from 'react-redux';
 
 const RegisterPage = () => {
   const {width, height} = Dimensions.get('window');
@@ -18,7 +16,6 @@ const RegisterPage = () => {
   const [password, setPassword] = useState('');
   const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
   const dispatch = useDispatch();
-  const isLoading = useSelector((state: StateType) => state.loading.isLoading);
 
   function pressButton() {
     createUser(email, password, navigation, dispatch);
@@ -28,35 +25,32 @@ const RegisterPage = () => {
     <ImageBackground
       source={require('../../assets/images/background.jpg')}
       style={style.background}>
-      {isLoading ? (
-        <ActivityIndicator size="large" color="red"></ActivityIndicator>
-      ) : (
-        <SafeAreaView style={style.container}>
-          <Image
-            source={require('../../assets/images/logo_list.png')}
-            style={[style.logo, {width: width * 0.6, height: height * 0.3}]}
-            resizeMode="contain"
+      <SafeAreaView style={style.container}>
+        <Image
+          source={require('../../assets/images/logo_list.png')}
+          style={[style.logo, {width: width * 0.6, height: height * 0.3}]}
+          resizeMode="contain"
+        />
+        <View style={style.inputContainer}>
+          <Input
+            placeHolder="Mail giriniz"
+            onChange={mail => setEmail(mail)}
+            value={email}
           />
-          <View style={style.inputContainer}>
-            <Input
-              placeHolder="Mail giriniz"
-              onChange={mail => setEmail(mail)}
-              value={email}
-            />
-            <Input
-              placeHolder="Şifre giriniz"
-              value={password}
-              onChange={password => setPassword(password)}
-              secureTextEntry={true}
-            />
-          </View>
-          <MyButton
-            title="Hesap Olustur"
-            navigateTo="Home"
-            onPress={pressButton}
+          <Input
+            placeHolder="Şifre giriniz"
+            value={password}
+            onChange={password => setPassword(password)}
+            secureTextEntry={true}
           />
-        </SafeAreaView>
-      )}
+        </View>
+        <MyButton
+          title="Hesap Olustur"
+          theme="primary"
+          navigateTo="Home"
+          onPress={pressButton}
+        />
+      </SafeAreaView>
     </ImageBackground>
   );
 };

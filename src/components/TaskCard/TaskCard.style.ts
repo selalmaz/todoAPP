@@ -18,7 +18,7 @@ export default StyleSheet.create({
     marginRight: 10,
   },
   task: {
-    fontSize: 16,
+    fontSize: 20,
     color: '#333',
     flex: 1,
   },

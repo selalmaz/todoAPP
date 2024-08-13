@@ -16,13 +16,11 @@ import {StackParamList} from '../../types';
 import {adDB} from '../../services/firebase/database';
 import {useDispatch, useSelector} from 'react-redux';
 import {StateType} from '../../redux/Store';
-import {ActivityIndicator} from 'react-native';
 
 const HomePage = () => {
   const [inputValue, setInputValue] = useState('');
   const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
   const dispatch = useDispatch();
-  const isLoading = useSelector((state: StateType) => state.loading.isLoading);
 
   // Ekran boyutlarını almak için
   const {width, height} = Dimensions.get('window');
@@ -40,29 +38,28 @@ const HomePage = () => {
       style={[styles.background, {width, height}]}
       source={require('../../assets/images/background.jpg')}
       resizeMode="cover">
-      {isLoading ? (
-        <ActivityIndicator size="large" color="#0000ff"></ActivityIndicator>
-      ) : (
-        <SafeAreaView style={styles.container}>
-          <View style={styles.logoContainer}>
-            <Image
-              source={require('../../assets/images/logo_list.png')}
-              style={[styles.logo, {width: width * 0.5, height: height * 0.3}]}
-              resizeMode="contain"
-            />
-          </View>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.logoContainer}>
+          <Image
+            source={require('../../assets/images/logo_list.png')}
+            style={[styles.logo, {width: width * 0.5, height: height * 0.3}]}
+            resizeMode="contain"
+          />
+        </View>
 
-          <View style={styles.inputContainer}>
-            <Input
-              placeHolder="Task giriniz"
-              value={inputValue}
-              onChange={text => setInputValue(text)}
-            />
-            <MyButton title="Taski ekle" onPress={onPress} />
-            <MyButton title="Çıkış Yap" onPress={signOut}></MyButton>
-          </View>
-        </SafeAreaView>
-      )}
+        <View style={styles.inputContainer}>
+          <Input
+            placeHolder="Task giriniz"
+            value={inputValue}
+            onChange={text => setInputValue(text)}
+          />
+          <MyButton title="Taski ekle" onPress={onPress} theme="primary" />
+          <MyButton
+            title="Çıkış Yap"
+            onPress={signOut}
+            theme="secondry"></MyButton>
+        </View>
+      </SafeAreaView>
     </ImageBackground>
   );
 };
