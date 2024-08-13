@@ -1,38 +1,23 @@
 import React, {useState} from 'react';
-import {
-  Alert,
-  Dimensions,
-  Image,
-  ImageBackground,
-  SafeAreaView,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import Input from '../../components/Input/Input';
+import {Button, Dimensions, Image, ImageBackground, View} from 'react-native';
+import {SafeAreaView, Text} from 'react-native';
+import Input from '../../components/Input';
 import MyButton from '../../components/Mybutton/Mybutton';
-import style from './LoginPage.style';
-import {signInUser} from '../../services/firebase/auth';
+import style from './RegisterPage.style';
+import {createUser} from '../../services/firebase/auth';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {StackParamList} from '../../types';
 
-const MAIL: string = 'ahmet@deneme.com';
-const PASSWORD: string = '123456789';
-
-const LoginPage = () => {
+const RegisterPage = () => {
+  const {width, height} = Dimensions.get('window');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const {width, height} = Dimensions.get('window');
-
   const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
 
-  function handleRegister() {
-    navigation.navigate('Register');
+  function pressButton() {
+    createUser(email, password, navigation);
   }
-  const handleLogin = () => {
-    signInUser(email, password, navigation);
-  };
 
   return (
     <ImageBackground
@@ -45,22 +30,26 @@ const LoginPage = () => {
           resizeMode="contain"
         />
         <View style={style.inputContainer}>
-          <Input placeHolder="Mail giriniz" onChange={mail => setEmail(mail)} />
+          <Input
+            placeHolder="Mail giriniz"
+            onChange={mail => setEmail(mail)}
+            value={email}
+          />
           <Input
             placeHolder="Şifre giriniz"
+            value={password}
             onChange={password => setPassword(password)}
             secureTextEntry={true}
           />
         </View>
-
-        <View style={style.buttonContainer}>
-          <TouchableOpacity onPress={handleRegister} style={style.signUpButton}>
-            <Text style={style.signUpText}>Hesap Oluştur</Text>
-          </TouchableOpacity>
-          <MyButton title="Giriş Yap" onPress={handleLogin} />
-        </View>
+        <MyButton
+          title="Hesap Olustur"
+          navigateTo="Home"
+          onPress={pressButton}
+        />
       </SafeAreaView>
     </ImageBackground>
   );
 };
-export default LoginPage;
+
+export default RegisterPage;

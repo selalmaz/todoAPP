@@ -23,16 +23,4 @@ export default StyleSheet.create({
     width: '100%',
     marginTop: 45,
   },
-  buttonContainer: {
-    marginTop: 5,
-    width: '100%',
-  },
-  signUpButton: {
-    alignSelf: 'flex-end',
-  },
-  signUpText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
 });

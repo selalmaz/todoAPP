@@ -1,5 +1,6 @@
 export type StackParamList = {
   Login: undefined;
+  Register: undefined;
   Home: undefined;
 };
 
@@ -23,4 +24,10 @@ export type buttonProps = {
 export type CardProps = {
   task: string;
   id: string;
+};
+
+export type TaskType = {
+  id: string;
+  task: string;
+  isChecked: boolean;
 };
