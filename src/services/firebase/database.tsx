@@ -26,13 +26,37 @@ export const readData = async () => {
       .ref(uid + '/')
       .once('value');
     const parsedData = parseTaskData(snapshot.val());
-    console.log('User data: ', parsedData);
+    // console.log('User data: ', parsedData);
     return parsedData;
   } catch (err) {
     console.log(err);
     return []; // hata olıursa bos deger
   }
 };
+export const updateDB = async (taskId: string, isChecked: boolean) => {
+  const uid = auth().currentUser?.uid;
 
-export const updateDB = () => {};
-export const deleteDB = () => {};
+  try {
+    await database()
+      .ref(uid + '/' + taskId)
+      .update({
+        complete: isChecked,
+      });
+    console.log('Task updated.');
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const deleteTask = async (taskId: string) => {
+  const uid = auth().currentUser?.uid;
+
+  try {
+    await database()
+      .ref(uid + '/' + taskId)
+      .remove();
+    console.log('Task deleted successfully.');
+  } catch (err) {
+    console.log(err);
+  }
+};
