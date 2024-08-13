@@ -9,7 +9,7 @@ import {
 import TaskCard from '../../components/TaskCard';
 import style from './TodoListPage.style';
 import {FlatList} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {StateType} from '../../redux/Store';
 import {readData} from '../../services/firebase/database';
 import {TaskType} from '../../types';
@@ -18,6 +18,8 @@ const {width, height} = Dimensions.get('window');
 
 const TodoListPage = () => {
   const [tasks, setTasks] = useState<TaskType[]>([]);
+  const dispatch = useDispatch();
+
   const {gorevler, complete} = useSelector(
     (state: StateType) => state.tasklist,
   );
@@ -30,7 +32,7 @@ const TodoListPage = () => {
   }) => <TaskCard task={item.task} id={item.id} />;
 
   const fetchData = async () => {
-    const data = await readData();
+    const data = await readData(dispatch);
     setTasks(data);
   };
 

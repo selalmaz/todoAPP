@@ -21,7 +21,7 @@ const TaskCard = (props: CardProps) => {
       {
         text: 'Tamam',
         onPress: async () => {
-          await deleteTask(props.id);
+          await deleteTask(props.id, dispact);
         },
       },
     ]);
@@ -30,11 +30,11 @@ const TaskCard = (props: CardProps) => {
     if (!check) {
       console.log('1         ' + check);
       dispact(completeTask());
-      updateDB(props.id, true);
+      updateDB(props.id, true, dispact);
     } else {
       dispact(unCompleteTask());
       console.log('2         ' + check);
-      updateDB(props.id, false);
+      updateDB(props.id, false, dispact);
     }
   };
 
