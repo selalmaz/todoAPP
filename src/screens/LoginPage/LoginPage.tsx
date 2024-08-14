@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {
-  Alert,
   Dimensions,
   Image,
   ImageBackground,
@@ -16,14 +15,16 @@ import {signInUser} from '../../services/firebase/auth';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {StackParamList} from '../../types';
-
-const MAIL: string = 'ahmet@deneme.com';
-const PASSWORD: string = '123456789';
+import {useDispatch, useSelector} from 'react-redux';
+import {StateType} from '../../redux/Store';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const {width, height} = Dimensions.get('window');
+
+  const dispatch = useDispatch();
+  const isLoading = useSelector((state: StateType) => state.loading.isLoading);
 
   const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
 
@@ -31,7 +32,9 @@ const LoginPage = () => {
     navigation.navigate('Register');
   }
   const handleLogin = () => {
-    signInUser(email, password, navigation);
+    signInUser(email, password, navigation, dispatch);
+    setEmail('');
+    setPassword('');
   };
 
   return (
@@ -45,11 +48,16 @@ const LoginPage = () => {
           resizeMode="contain"
         />
         <View style={style.inputContainer}>
-          <Input placeHolder="Mail giriniz" onChange={mail => setEmail(mail)} />
+          <Input
+            placeHolder="Mail giriniz"
+            onChange={mail => setEmail(mail)}
+            value={email}
+          />
           <Input
             placeHolder="Şifre giriniz"
             onChange={password => setPassword(password)}
             secureTextEntry={true}
+            value={password}
           />
         </View>
 
@@ -57,7 +65,7 @@ const LoginPage = () => {
           <TouchableOpacity onPress={handleRegister} style={style.signUpButton}>
             <Text style={style.signUpText}>Hesap Oluştur</Text>
           </TouchableOpacity>
-          <MyButton title="Giriş Yap" onPress={handleLogin} />
+          <MyButton title="Giriş Yap" onPress={handleLogin} theme="primary" />
         </View>
       </SafeAreaView>
     </ImageBackground>

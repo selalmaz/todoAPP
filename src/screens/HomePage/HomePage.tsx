@@ -14,20 +14,23 @@ import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {StackParamList} from '../../types';
 import {adDB} from '../../services/firebase/database';
+import {useDispatch, useSelector} from 'react-redux';
+import {StateType} from '../../redux/Store';
 
 const HomePage = () => {
   const [inputValue, setInputValue] = useState('');
   const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
+  const dispatch = useDispatch();
 
   // Ekran boyutlarını almak için
   const {width, height} = Dimensions.get('window');
   function onPress() {
-    adDB(inputValue);
+    adDB(inputValue, dispatch);
     //dispatch(setTasks(inputValue));
     setInputValue(''); // Input değerini sıfırla
   }
   function signOut() {
-    signOutUser(navigation);
+    signOutUser(navigation, dispatch);
   }
 
   return (
@@ -50,8 +53,11 @@ const HomePage = () => {
             value={inputValue}
             onChange={text => setInputValue(text)}
           />
-          <MyButton title="Taski ekle" onPress={onPress} />
-          <MyButton title="Çıkış Yap" onPress={signOut}></MyButton>
+          <MyButton title="Taski ekle" onPress={onPress} theme="primary" />
+          <MyButton
+            title="Çıkış Yap"
+            onPress={signOut}
+            theme="secondry"></MyButton>
         </View>
       </SafeAreaView>
     </ImageBackground>

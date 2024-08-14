@@ -31,5 +31,5 @@ const Slice = createSlice({
   },
 });
 
-export default Slice;
 export const {completeTask, unCompleteTask, Check} = Slice.actions;
+export default Slice;

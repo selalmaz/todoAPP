@@ -17,6 +17,7 @@ export type inputProps = {
 
 export type buttonProps = {
   title: string;
+  theme: 'primary' | 'secondry';
   navigateTo?: keyof StackParamList; // navigate işlemi için
   onPress?: () => void; //
 };

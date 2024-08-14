@@ -8,15 +8,17 @@ import {createUser} from '../../services/firebase/auth';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {StackParamList} from '../../types';
+import {useDispatch} from 'react-redux';
 
 const RegisterPage = () => {
   const {width, height} = Dimensions.get('window');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
+  const dispatch = useDispatch();
 
   function pressButton() {
-    createUser(email, password, navigation);
+    createUser(email, password, navigation, dispatch);
   }
 
   return (
@@ -44,6 +46,7 @@ const RegisterPage = () => {
         </View>
         <MyButton
           title="Hesap Olustur"
+          theme="primary"
           navigateTo="Home"
           onPress={pressButton}
         />
