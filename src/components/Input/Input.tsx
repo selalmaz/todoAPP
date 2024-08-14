@@ -11,7 +11,7 @@ const Input = (props: inputProps) => {
         value={props.value}
         placeholder={props.placeHolder}
         onChangeText={props.onChange}
-        secureTextEntry={props.secureTextEntry} // Varsayılan değer
+        secureTextEntry={props.secureTextEntry} // varsayılan degerr
       />
     </View>
   );

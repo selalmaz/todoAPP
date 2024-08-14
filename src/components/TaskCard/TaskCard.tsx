@@ -3,7 +3,7 @@ import {Alert, Text, TouchableOpacity, View} from 'react-native';
 import CheckBox from 'react-native-check-box';
 import {useDispatch, useSelector} from 'react-redux';
 import {StateType} from '../../redux/Store';
-import {Check, completeTask, unCompleteTask} from '../../redux/Slice';
+import {completeTask, unCompleteTask} from '../../redux/Slice';
 import {deleteTask, updateDB} from '../../services/firebase/database';
 import style from './TaskCard.style';
 import {CardProps} from '../../types';
@@ -12,7 +12,6 @@ import {ActivityIndicator} from 'react-native';
 const TaskCard = (props: CardProps) => {
   const isLoading = useSelector((state: StateType) => state.loading.isLoading);
 
-  const {check} = useSelector((state: StateType) => state.tasklist);
   const dispact = useDispatch();
 
   const handleDelete = () =>
@@ -29,36 +28,30 @@ const TaskCard = (props: CardProps) => {
       },
     ]);
   const handleComplete = () => {
-    dispact(Check(check));
-    if (!check) {
-      console.log('1         ' + check);
+    if (!props.isChecked) {
       dispact(completeTask());
       updateDB(props.id, true, dispact);
     } else {
       dispact(unCompleteTask());
-      console.log('2         ' + check);
       updateDB(props.id, false, dispact);
     }
   };
 
-  const handleDeletePress = check ? () => {} : handleDelete;
+  const handleDeletePress = props.isChecked ? () => {} : handleDelete;
 
   return (
-    <View style={[style.container, check && style.checked]}>
+    <View style={[style.container, props.isChecked && style.checked]}>
       {isLoading ? (
-        <ActivityIndicator
-          style={{}}
-          size="large"
-          color="#bdbdbd"></ActivityIndicator>
+        <ActivityIndicator size="large" color="#bdbdbd"></ActivityIndicator>
       ) : (
         <View style={style.innerContainer}>
           <CheckBox
             onClick={handleComplete}
-            isChecked={check}
+            isChecked={props.isChecked}
             style={style.checkbox}
             checkBoxColor="#3B82F6"
           />
-          <Text style={[style.task, check && style.checkedText]}>
+          <Text style={[style.task, props.isChecked && style.checkedText]}>
             {props.task}
           </Text>
           <TouchableOpacity
