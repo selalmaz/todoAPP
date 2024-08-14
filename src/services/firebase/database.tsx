@@ -19,7 +19,7 @@ export const adDB = (task: string, dispatch: Dispatch<any>) => {
       complete: false,
     })
     .then(() => {
-      console.log('data updated.');
+      console.log('data updated.' + task);
       dispatch(stopLoading());
     })
     .catch(err => {
@@ -59,7 +59,7 @@ export const updateDB = async (
       .update({
         complete: isChecked,
       });
-    console.log('Task updated.');
+    console.log('task update.' + taskId + isChecked);
     dispatch(stopLoading());
   } catch (err) {
     console.log(err);
@@ -75,7 +75,7 @@ export const deleteTask = async (taskId: string, dispatch: Dispatch<any>) => {
     await database()
       .ref(uid + '/' + taskId)
       .remove();
-    console.log('Task deleted successfully.');
+    console.log('task delete success.');
     dispatch(stopLoading());
   } catch (err) {
     console.log(err);
