@@ -24,8 +24,6 @@ const LoginPage = () => {
   const {width, height} = Dimensions.get('window');
 
   const dispatch = useDispatch();
-  const isLoading = useSelector((state: StateType) => state.loading.isLoading);
-
   const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
 
   function handleRegister() {

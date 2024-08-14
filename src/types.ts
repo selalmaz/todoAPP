@@ -25,10 +25,13 @@ export type buttonProps = {
 export type CardProps = {
   task: string;
   id: string;
+  isChecked: boolean;
 };
 
-export type TaskType = {
-  id: string;
-  task: string;
-  isChecked: boolean;
+export type TaskState = {
+  complete: number;
+};
+
+export type LoadingState = {
+  isLoading: boolean;
 };

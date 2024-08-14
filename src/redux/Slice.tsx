@@ -1,15 +1,8 @@
-import {createSlice, nanoid} from '@reduxjs/toolkit';
-
-interface TaskState {
-  gorevler: {task: string; id: string}[];
-  complete: number;
-  check: boolean;
-}
+import {createSlice} from '@reduxjs/toolkit';
+import {TaskState} from '../types';
 
 const initialState: TaskState = {
-  gorevler: [],
   complete: 0,
-  check: false,
 };
 
 const Slice = createSlice({
@@ -24,12 +17,8 @@ const Slice = createSlice({
       state.complete -= 1;
       console.log('completed task count: ' + state.complete);
     },
-    Check(state, action) {
-      state.check = !action.payload;
-      console.log(action.payload);
-    },
   },
 });
 
-export const {completeTask, unCompleteTask, Check} = Slice.actions;
+export const {completeTask, unCompleteTask} = Slice.actions;
 export default Slice;

@@ -14,8 +14,7 @@ import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {StackParamList} from '../../types';
 import {adDB} from '../../services/firebase/database';
-import {useDispatch, useSelector} from 'react-redux';
-import {StateType} from '../../redux/Store';
+import {useDispatch} from 'react-redux';
 
 const HomePage = () => {
   const [inputValue, setInputValue] = useState('');

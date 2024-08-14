@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, Dimensions, Image, ImageBackground, View} from 'react-native';
+import {Dimensions, Image, ImageBackground, View} from 'react-native';
 import {SafeAreaView, Text} from 'react-native';
 import Input from '../../components/Input';
 import MyButton from '../../components/Mybutton/Mybutton';

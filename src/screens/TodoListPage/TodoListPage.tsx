@@ -12,24 +12,29 @@ import {FlatList} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {StateType} from '../../redux/Store';
 import {readData} from '../../services/firebase/database';
-import {TaskType} from '../../types';
+import {CardProps} from '../../types';
 
 const {width, height} = Dimensions.get('window');
+let count: number = 0;
 
 const TodoListPage = () => {
-  const [tasks, setTasks] = useState<TaskType[]>([]);
+  const [tasks, setTasks] = useState<CardProps[]>([]);
   const dispatch = useDispatch();
 
-  const {gorevler, complete} = useSelector(
-    (state: StateType) => state.tasklist,
-  );
+  const {complete} = useSelector((state: StateType) => state.tasklist);
 
   const renderItem = ({
     item,
   }: {
     // flatlist render icin
     item: {task: string; isChecked: boolean; id: string};
-  }) => <TaskCard task={item.task} id={item.id} />;
+  }) => {
+    //console.log(item.id, item.task, item.isChecked);
+    count = item.task.length;
+    return (
+      <TaskCard task={item.task} id={item.id} isChecked={item.isChecked} />
+    );
+  };
 
   const fetchData = async () => {
     const data = await readData(dispatch);
@@ -48,7 +53,7 @@ const TodoListPage = () => {
         resizeMode="cover">
         <View style={style.innerContainer}>
           <Text style={style.header}>
-            Görevler (Aktif görevler: {gorevler.length - complete})
+            Görevler (Aktif görevler: {count - complete})
           </Text>
           <View style={style.taskContainer}>
             <FlatList
