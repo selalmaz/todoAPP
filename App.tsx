@@ -8,6 +8,7 @@ function App() {
     <Provider store={Store}>
       <StackNavigator></StackNavigator>
     </Provider>
+    // son testler yapıldi ++
   );
 }
 
