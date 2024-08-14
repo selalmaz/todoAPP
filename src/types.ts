@@ -2,6 +2,7 @@ export type StackParamList = {
   Login: undefined;
   Register: undefined;
   Home: undefined;
+  Api: undefined;
 };
 
 export type TabParamList = {
@@ -34,4 +35,11 @@ export type TaskState = {
 
 export type LoadingState = {
   isLoading: boolean;
+};
+
+export type ApiCardProps = {
+  todo: string;
+  completed: boolean;
+  userId: number;
+  id: number;
 };
