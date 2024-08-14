@@ -1,30 +1,18 @@
-import React, {useState} from 'react';
-import {Alert, Text, TouchableOpacity} from 'react-native';
-import {View} from 'react-native';
-import style from './TaskCard.style';
-import {CardProps} from '../../types';
-import {
-  removeTask,
-  completeTask,
-  unCompleteTask,
-  Check,
-} from '../../redux/Slice';
-
+import React from 'react';
+import {Alert, Text, TouchableOpacity, View} from 'react-native';
 import CheckBox from 'react-native-check-box';
 import {useDispatch, useSelector} from 'react-redux';
 import {StateType} from '../../redux/Store';
+import {completeTask, unCompleteTask} from '../../redux/Slice';
+import {deleteTask, updateDB} from '../../services/firebase/database';
+import style from './TaskCard.style';
+import {CardProps} from '../../types';
+import {ActivityIndicator} from 'react-native';
 
 const TaskCard = (props: CardProps) => {
-  const dispact = useDispatch();
+  const isLoading = useSelector((state: StateType) => state.loading.isLoading);
 
-  const taskState = useSelector((state: StateType) => state.tasklist);
-  const task = taskState.gorevler.find(gorev => gorev.id === props.id);
-  let isChecked: boolean;
-  if (task) {
-    isChecked = task.isChecked;
-  } else {
-    isChecked = false;
-  }
+  const dispact = useDispatch();
 
   const handleDelete = () =>
     Alert.alert('Uyarı', 'Görevi silmek istediğinizden emin misiniz?', [
@@ -34,38 +22,45 @@ const TaskCard = (props: CardProps) => {
       },
       {
         text: 'Tamam',
-        onPress: () => dispact(removeTask(props.id)),
+        onPress: async () => {
+          await deleteTask(props.id, dispact);
+        },
       },
     ]);
-
-  function handleComplete() {
-    dispact(Check(props.id));
-    if (!isChecked) {
+  const handleComplete = () => {
+    if (!props.isChecked) {
       dispact(completeTask());
+      updateDB(props.id, true, dispact);
     } else {
       dispact(unCompleteTask());
+      updateDB(props.id, false, dispact);
     }
-  }
+  };
 
-  const handleDeletePress = isChecked ? () => {} : handleDelete;
+  const handleDeletePress = props.isChecked ? () => {} : handleDelete;
+
   return (
-    <View style={[style.container, isChecked && style.checked]}>
-      <View style={style.innerContainer}>
-        <CheckBox
-          onClick={handleComplete}
-          isChecked={isChecked}
-          style={style.checkbox}
-          checkBoxColor="#3B82F6"
-        />
-        <Text style={[style.task, isChecked && style.checkedText]}>
-          {props.task}
-        </Text>
-        <TouchableOpacity
-          onPress={handleDeletePress}
-          style={style.deleteButton}>
-          <Text style={style.deleteButtonText}>x</Text>
-        </TouchableOpacity>
-      </View>
+    <View style={[style.container, props.isChecked && style.checked]}>
+      {isLoading ? (
+        <ActivityIndicator size="large" color="#bdbdbd"></ActivityIndicator>
+      ) : (
+        <View style={style.innerContainer}>
+          <CheckBox
+            onClick={handleComplete}
+            isChecked={props.isChecked}
+            style={style.checkbox}
+            checkBoxColor="#3B82F6"
+          />
+          <Text style={[style.task, props.isChecked && style.checkedText]}>
+            {props.task}
+          </Text>
+          <TouchableOpacity
+            onPress={handleDeletePress}
+            style={style.deleteButton}>
+            <Text style={style.deleteButtonText}>x</Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 };

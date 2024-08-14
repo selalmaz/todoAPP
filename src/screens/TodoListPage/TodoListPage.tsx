@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Dimensions,
   ImageBackground,
@@ -9,19 +9,41 @@ import {
 import TaskCard from '../../components/TaskCard';
 import style from './TodoListPage.style';
 import {FlatList} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {StateType} from '../../redux/Store';
+import {readData} from '../../services/firebase/database';
+import {CardProps} from '../../types';
+
+const {width, height} = Dimensions.get('window');
+let count: number = 0;
 
 const TodoListPage = () => {
-  const {gorevler, complete} = useSelector(
-    (state: StateType) => state.tasklist,
-  );
+  const [tasks, setTasks] = useState<CardProps[]>([]);
+  const dispatch = useDispatch();
+
+  const {complete} = useSelector((state: StateType) => state.tasklist);
+
   const renderItem = ({
     item,
   }: {
+    // flatlist render icin
     item: {task: string; isChecked: boolean; id: string};
-  }) => <TaskCard task={item.task} id={item.id} />;
-  const {width, height} = Dimensions.get('window');
+  }) => {
+    //console.log(item.id, item.task, item.isChecked);
+    count = item.task.length;
+    return (
+      <TaskCard task={item.task} id={item.id} isChecked={item.isChecked} />
+    );
+  };
+
+  const fetchData = async () => {
+    const data = await readData(dispatch);
+    setTasks(data);
+  };
+
+  useEffect(() => {
+    fetchData();
+  });
 
   return (
     <SafeAreaView style={style.container}>
@@ -31,10 +53,14 @@ const TodoListPage = () => {
         resizeMode="cover">
         <View style={style.innerContainer}>
           <Text style={style.header}>
-            Görevler (Aktif görevler:{gorevler.length - complete})
+            Görevler (Aktif görevler: {count - complete})
           </Text>
           <View style={style.taskContainer}>
-            <FlatList data={gorevler} renderItem={renderItem}></FlatList>
+            <FlatList
+              data={tasks}
+              renderItem={renderItem}
+              keyExtractor={item => item.id}
+            />
           </View>
         </View>
       </ImageBackground>

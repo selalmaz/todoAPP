@@ -1,8 +1,7 @@
 import {StyleSheet} from 'react-native';
 
-export default StyleSheet.create({
+const baseStyle = StyleSheet.create({
   button: {
-    backgroundColor: '#006894',
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
@@ -11,8 +10,37 @@ export default StyleSheet.create({
     width: '100%',
   },
   buttonText: {
-    color: 'white',
     fontSize: 18,
     fontWeight: 'bold',
   },
 });
+
+export default {
+  primary: StyleSheet.create({
+    ...baseStyle,
+    button: {
+      ...baseStyle.button,
+      backgroundColor: '#006894',
+      borderWidth: 1,
+      borderColor: 'white',
+    },
+    buttonText: {
+      color: 'white',
+      ...baseStyle.buttonText,
+    },
+  }),
+
+  secondry: StyleSheet.create({
+    ...baseStyle,
+    button: {
+      backgroundColor: 'white',
+      borderWidth: 4,
+      borderColor: '#006894',
+      ...baseStyle.button,
+    },
+    buttonText: {
+      color: '#006894',
+      ...baseStyle.buttonText,
+    },
+  }),
+};

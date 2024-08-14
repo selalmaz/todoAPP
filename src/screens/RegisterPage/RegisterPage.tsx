@@ -1,39 +1,25 @@
 import React, {useState} from 'react';
-import {
-  Dimensions,
-  Image,
-  ImageBackground,
-  SafeAreaView,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import Input from '../../components/Input/Input';
+import {Dimensions, Image, ImageBackground, View} from 'react-native';
+import {SafeAreaView, Text} from 'react-native';
+import Input from '../../components/Input';
 import MyButton from '../../components/Mybutton/Mybutton';
-import style from './LoginPage.style';
-import {signInUser} from '../../services/firebase/auth';
+import style from './RegisterPage.style';
+import {createUser} from '../../services/firebase/auth';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {StackParamList} from '../../types';
-import {useDispatch, useSelector} from 'react-redux';
-import {StateType} from '../../redux/Store';
+import {useDispatch} from 'react-redux';
 
-const LoginPage = () => {
+const RegisterPage = () => {
+  const {width, height} = Dimensions.get('window');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const {width, height} = Dimensions.get('window');
-
-  const dispatch = useDispatch();
   const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
+  const dispatch = useDispatch();
 
-  function handleRegister() {
-    navigation.navigate('Register');
+  function pressButton() {
+    createUser(email, password, navigation, dispatch);
   }
-  const handleLogin = () => {
-    signInUser(email, password, navigation, dispatch);
-    setEmail('');
-    setPassword('');
-  };
 
   return (
     <ImageBackground
@@ -53,20 +39,20 @@ const LoginPage = () => {
           />
           <Input
             placeHolder="Şifre giriniz"
+            value={password}
             onChange={password => setPassword(password)}
             secureTextEntry={true}
-            value={password}
           />
         </View>
-
-        <View style={style.buttonContainer}>
-          <TouchableOpacity onPress={handleRegister} style={style.signUpButton}>
-            <Text style={style.signUpText}>Hesap Oluştur</Text>
-          </TouchableOpacity>
-          <MyButton title="Giriş Yap" onPress={handleLogin} theme="primary" />
-        </View>
+        <MyButton
+          title="Hesap Olustur"
+          theme="primary"
+          navigateTo="Home"
+          onPress={pressButton}
+        />
       </SafeAreaView>
     </ImageBackground>
   );
 };
-export default LoginPage;
+
+export default RegisterPage;

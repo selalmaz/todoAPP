@@ -1,5 +1,6 @@
 export type StackParamList = {
   Login: undefined;
+  Register: undefined;
   Home: undefined;
 };
 
@@ -16,6 +17,7 @@ export type inputProps = {
 
 export type buttonProps = {
   title: string;
+  theme: 'primary' | 'secondry';
   navigateTo?: keyof StackParamList; // navigate işlemi için
   onPress?: () => void; //
 };
@@ -23,4 +25,13 @@ export type buttonProps = {
 export type CardProps = {
   task: string;
   id: string;
+  isChecked: boolean;
+};
+
+export type TaskState = {
+  complete: number;
+};
+
+export type LoadingState = {
+  isLoading: boolean;
 };
