@@ -98,7 +98,7 @@ export const signOutUser = (
         message: 'Cikis islemi basarili',
         type: 'info',
       });
-      dispatch(stopLoading()); // Yükleme durduruluyor
+      dispatch(stopLoading());
     })
     .catch(err => {
       console.log(err);
