@@ -7,10 +7,8 @@ import {ApiCardProps} from '../../types';
 const ApiCard = (props: ApiCardProps) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{props.todo}</Text>
-      <Text style={styles.completed}>
-        {props.completed ? 'Yapıldı' : 'Yapılmadı'}
-      </Text>
+      <Text style={styles.title}>{props.age}</Text>
+      <Text style={styles.completed}>{props.name}</Text>
     </View>
   );
 };

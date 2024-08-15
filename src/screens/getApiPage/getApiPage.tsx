@@ -21,7 +21,7 @@ const GetApiPage = () => {
   }, []);
 
   const renderItem = ({item}: {item: ApiCardProps}) => (
-    <ApiCard todo={item.todo} completed={item.completed} />
+    <ApiCard age={item.age} id={item.id} name={item.name} />
   );
 
   function saveData() {

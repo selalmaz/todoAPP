@@ -1,19 +1,19 @@
 {
-        "users":[
-
-            {
-                "id":"unique-1",
-                "name":"ahmet sellamz",
-                "age": 30
-            },
-        {
-            "id":"unique-2",
-            "name":"levis hamilton",
-            "age":33
-        }
-
-
-
-
-        ]
+  "users": [
+    {
+      "id": "c2d4",
+      "name": "ahmet",
+      "age": 25
+    },
+    {
+      "id": "1c0c",
+      "name": "ahmet",
+      "age": 25
+    },
+    {
+      "id": "374e",
+      "name": "ahmet",
+      "age": 25
+    }
+  ]
 }

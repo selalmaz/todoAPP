@@ -39,6 +39,7 @@ export type LoadingState = {
 };
 
 export type ApiCardProps = {
-  todo: string;
-  completed: boolean;
+  age: number;
+  name: string;
+  id: string;
 };
