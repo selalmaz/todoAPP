@@ -31,6 +31,7 @@ export type CardProps = {
 
 export type TaskState = {
   complete: number;
+  items: ApiCardProps[];
 };
 
 export type LoadingState = {
@@ -40,6 +41,4 @@ export type LoadingState = {
 export type ApiCardProps = {
   todo: string;
   completed: boolean;
-  userId: number;
-  id: number;
 };

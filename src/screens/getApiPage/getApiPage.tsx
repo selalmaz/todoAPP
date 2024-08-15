@@ -6,29 +6,50 @@ import {fetchData} from '../../services/axios/getData';
 import {useDispatch, useSelector} from 'react-redux';
 import {ApiCardProps} from '../../types';
 import {StateType} from '../../redux/Store';
+import Input from '../../components/Input';
+import MyButton from '../../components/Mybutton/Mybutton';
 
 const GetApiPage = () => {
   const loading = useSelector((state: StateType) => state.loading.isLoading);
-
+  const [name, setName] = useState('');
+  const [surname, setSurname] = useState('');
+  const data = useSelector((state: StateType) => state.tasklist.items);
   const dispatch = useDispatch();
-  const [todos, setTodos] = useState<ApiCardProps[]>([]);
 
   useEffect(() => {
-    const getData = async () => {
-      const data = await fetchData(dispatch);
-      setTodos(data);
-    };
-
-    getData();
+    fetchData(dispatch);
   }, []);
 
+  const renderItem = ({item}: {item: ApiCardProps}) => (
+    <ApiCard todo={item.todo} completed={item.completed} />
+  );
+
+  function saveData() {
+    console.warn(name, surname);
+  }
+
   return (
-    <View style={{flex: 1, padding: 20}}>
+    <View style={{flex: 1, padding: 20, backgroundColor: 'cyan'}}>
       {loading ? (
         <ActivityIndicator size="large" color="cyan"></ActivityIndicator>
       ) : (
-        <FlatList data={todos} renderItem={({item}) => <ApiCard {...item} />} />
+        <FlatList data={data} renderItem={renderItem}></FlatList>
       )}
+      <View
+        style={{backgroundColor: 'red', padding: 5, margin: 5, height: '45%'}}>
+        <Input
+          value={name}
+          placeHolder="adinizi giriniz"
+          onChange={text => setName(text)}></Input>
+        <Input
+          placeHolder="soyadinizi giriniz"
+          value={surname}
+          onChange={text => setSurname(text)}></Input>
+        <MyButton
+          title="veri ekle"
+          theme="secondry"
+          onPress={saveData}></MyButton>
+      </View>
     </View>
   );
 };

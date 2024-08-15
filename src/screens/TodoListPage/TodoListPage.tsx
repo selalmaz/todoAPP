@@ -21,11 +21,10 @@ const TodoListPage = () => {
   const [tasks, setTasks] = useState<CardProps[]>([]);
   const dispatch = useDispatch();
 
-  const {complete} = useSelector((state: StateType) => state.tasklist);
-
   const fetchData = async () => {
     const data = await readData(dispatch);
     setTasks(data);
+    count = data.filter(task => !task.isChecked).length;
   };
 
   useEffect(() => {
@@ -39,9 +38,7 @@ const TodoListPage = () => {
         source={require('../../assets/images/background.jpg')}
         resizeMode="cover">
         <View style={style.innerContainer}>
-          <Text style={style.header}>
-            Görevler (Aktif görevler: {count - complete})
-          </Text>
+          <Text style={style.header}>Görevler (Aktif görevler: {count})</Text>
           <View style={style.taskContainer}>
             <FlatList
               data={tasks}

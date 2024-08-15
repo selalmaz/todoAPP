@@ -11,7 +11,6 @@ import {StateType} from '../../redux/Store';
 
 const MyButton = (props: buttonProps) => {
   const isLoading = useSelector((state: StateType) => state.loading.isLoading);
-
   const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
 
   function handlePress() {

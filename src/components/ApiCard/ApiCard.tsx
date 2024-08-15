@@ -9,7 +9,7 @@ const ApiCard = (props: ApiCardProps) => {
     <View style={styles.container}>
       <Text style={styles.title}>{props.todo}</Text>
       <Text style={styles.completed}>
-        {props.completed ? 'Completed' : 'Not Completed'}
+        {props.completed ? 'Yapıldı' : 'Yapılmadı'}
       </Text>
     </View>
   );
