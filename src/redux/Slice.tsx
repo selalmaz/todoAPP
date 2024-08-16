@@ -3,12 +3,17 @@ import {TaskState} from '../types';
 
 const initialState: TaskState = {
   complete: 0,
+  items: [],
 };
 
 const Slice = createSlice({
   name: 'taskList',
   initialState,
   reducers: {
+    setData(state, action) {
+      state.items = action.payload;
+    },
+
     completeTask(state) {
       state.complete += 1;
       console.log('completed task count: ' + state.complete);
@@ -20,5 +25,5 @@ const Slice = createSlice({
   },
 });
 
-export const {completeTask, unCompleteTask} = Slice.actions;
+export const {completeTask, unCompleteTask, setData} = Slice.actions;
 export default Slice;

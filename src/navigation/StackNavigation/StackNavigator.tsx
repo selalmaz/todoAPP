@@ -5,6 +5,7 @@ import {StackParamList} from '../../types';
 import LoginPage from '../../screens/LoginPage';
 import TabNavigator from '../TabNavigation/TabNavigator';
 import RegisterPage from '../../screens/RegisterPage';
+import GetApiPage from '../../screens/getApiPage/getApiPage';
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
@@ -15,7 +16,8 @@ const StackNavigator = () => {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName="Login">
+        initialRouteName="Api">
+        <Stack.Screen name="Api" component={GetApiPage}></Stack.Screen>
         <Stack.Screen name="Register" component={RegisterPage}></Stack.Screen>
         <Stack.Screen name="Login" component={LoginPage} />
         <Stack.Screen name="Home" component={TabNavigator} />

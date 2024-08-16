@@ -2,6 +2,7 @@ export type StackParamList = {
   Login: undefined;
   Register: undefined;
   Home: undefined;
+  Api: undefined;
 };
 
 export type TabParamList = {
@@ -30,8 +31,15 @@ export type CardProps = {
 
 export type TaskState = {
   complete: number;
+  items: ApiCardProps[];
 };
 
 export type LoadingState = {
   isLoading: boolean;
+};
+
+export type ApiCardProps = {
+  age: number;
+  name: string;
+  id: string;
 };

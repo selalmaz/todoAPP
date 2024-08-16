@@ -21,24 +21,10 @@ const TodoListPage = () => {
   const [tasks, setTasks] = useState<CardProps[]>([]);
   const dispatch = useDispatch();
 
-  const {complete} = useSelector((state: StateType) => state.tasklist);
-
-  const renderItem = ({
-    item,
-  }: {
-    // flatlist render icin
-    item: {task: string; isChecked: boolean; id: string};
-  }) => {
-    //console.log(item.id, item.task, item.isChecked);
-    count = item.task.length;
-    return (
-      <TaskCard task={item.task} id={item.id} isChecked={item.isChecked} />
-    );
-  };
-
   const fetchData = async () => {
     const data = await readData(dispatch);
     setTasks(data);
+    count = data.filter(task => !task.isChecked).length;
   };
 
   useEffect(() => {
@@ -52,13 +38,11 @@ const TodoListPage = () => {
         source={require('../../assets/images/background.jpg')}
         resizeMode="cover">
         <View style={style.innerContainer}>
-          <Text style={style.header}>
-            Görevler (Aktif görevler: {count - complete})
-          </Text>
+          <Text style={style.header}>Görevler (Aktif görevler: {count})</Text>
           <View style={style.taskContainer}>
             <FlatList
               data={tasks}
-              renderItem={renderItem}
+              renderItem={({item}) => <TaskCard {...item}></TaskCard>}
               keyExtractor={item => item.id}
             />
           </View>
