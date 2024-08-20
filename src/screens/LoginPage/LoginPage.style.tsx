@@ -3,29 +3,35 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   background: {
     flex: 1,
-    width: '100%',
-    height: '100%',
     justifyContent: 'center',
-    alignItems: 'center',
   },
   container: {
     flex: 1,
+  },
+  innerContainer: {
+    flex: 1,
+    paddingHorizontal: 20,
+    justifyContent: 'center',
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+  },
+  logoContainer: {
+    paddingTop: 25,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
-    width: '100%',
-    height: '100%',
-  },
-  logo: {
     marginBottom: 20,
   },
+
   inputContainer: {
-    width: '100%',
-    marginTop: 45,
+    marginBottom: 20,
   },
+
   buttonContainer: {
-    marginTop: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
     width: '100%',
+    height: '20%',
   },
   signUpButton: {
     alignSelf: 'flex-end',

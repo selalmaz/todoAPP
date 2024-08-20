@@ -5,12 +5,10 @@ import {StackParamList} from '../../types';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import style from './Mybutton.style';
 import {buttonProps} from '../../types';
-import {ActivityIndicator} from 'react-native';
 import {useSelector} from 'react-redux';
 import {StateType} from '../../redux/Store';
 
 const MyButton = (props: buttonProps) => {
-  const isLoading = useSelector((state: StateType) => state.loading.isLoading);
   const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
 
   function handlePress() {
@@ -23,11 +21,7 @@ const MyButton = (props: buttonProps) => {
     <TouchableOpacity
       style={style[props.theme].button}
       onPress={props.onPress || handlePress}>
-      {isLoading ? (
-        <ActivityIndicator size="large" color="red"></ActivityIndicator>
-      ) : (
-        <Text style={style[props.theme].buttonText}>{props.title}</Text>
-      )}
+      <Text style={style[props.theme].buttonText}>{props.title}</Text>
     </TouchableOpacity>
   );
 };

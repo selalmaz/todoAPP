@@ -18,3 +18,6 @@ const Input = (props: inputProps) => {
 };
 
 export default Input;
+
+// mutli cursor alt shift
+//  ctrl d

@@ -1,27 +1,34 @@
 import React, {useState} from 'react';
 import {
+  ActivityIndicator,
   Dimensions,
   Image,
   ImageBackground,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
   SafeAreaView,
+  ScrollView,
   Text,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {useDispatch, useSelector} from 'react-redux';
 import Input from '../../components/Input/Input';
 import MyButton from '../../components/Mybutton/Mybutton';
 import style from './LoginPage.style';
 import {signInUser} from '../../services/firebase/auth';
-import {useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {StackParamList} from '../../types';
-import {useDispatch, useSelector} from 'react-redux';
 import {StateType} from '../../redux/Store';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const {width, height} = Dimensions.get('window');
+  const isLoading = useSelector((state: StateType) => state.loading.isLoading);
 
   const dispatch = useDispatch();
   const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
@@ -29,6 +36,7 @@ const LoginPage = () => {
   function handleRegister() {
     navigation.navigate('Register');
   }
+
   const handleLogin = () => {
     signInUser(email, password, navigation, dispatch);
     setEmail('');
@@ -39,34 +47,55 @@ const LoginPage = () => {
     <ImageBackground
       source={require('../../assets/images/background.jpg')}
       style={style.background}>
-      <SafeAreaView style={style.container}>
-        <Image
-          source={require('../../assets/images/logo_list.png')}
-          style={[style.logo, {width: width * 0.6, height: height * 0.3}]}
-          resizeMode="contain"
-        />
-        <View style={style.inputContainer}>
-          <Input
-            placeHolder="Mail giriniz"
-            onChange={mail => setEmail(mail)}
-            value={email}
-          />
-          <Input
-            placeHolder="Şifre giriniz"
-            onChange={password => setPassword(password)}
-            secureTextEntry={true}
-            value={password}
-          />
-        </View>
+      <KeyboardAvoidingView behavior="padding" style={style.container}>
+        <SafeAreaView style={style.innerContainer}>
+          <ScrollView contentContainerStyle={style.scrollViewContent}>
+            <View style={style.logoContainer}>
+              <Image
+                source={require('../../assets/images/logo_list.png')}
+                style={{
+                  width: width * 0.6,
+                  height: height * 0.3,
+                }}
+                resizeMode="contain"
+              />
+            </View>
 
-        <View style={style.buttonContainer}>
-          <TouchableOpacity onPress={handleRegister} style={style.signUpButton}>
-            <Text style={style.signUpText}>Hesap Oluştur</Text>
-          </TouchableOpacity>
-          <MyButton title="Giriş Yap" onPress={handleLogin} theme="primary" />
-        </View>
-      </SafeAreaView>
+            <View style={style.inputContainer}>
+              <Input
+                placeHolder="Mail giriniz"
+                onChange={mail => setEmail(mail)}
+                value={email}
+              />
+              <Input
+                placeHolder="Şifre giriniz"
+                value={password}
+                onChange={password => setPassword(password)}
+                secureTextEntry={true}
+              />
+            </View>
+
+            <View style={style.buttonContainer}>
+              <TouchableOpacity
+                onPress={handleRegister}
+                style={style.signUpButton}>
+                <Text style={style.signUpText}>Hesap Oluştur</Text>
+              </TouchableOpacity>
+              {isLoading ? (
+                <ActivityIndicator size="large" color="cyan" />
+              ) : (
+                <MyButton
+                  title="Giriş Yap"
+                  onPress={handleLogin}
+                  theme="primary"
+                />
+              )}
+            </View>
+          </ScrollView>
+        </SafeAreaView>
+      </KeyboardAvoidingView>
     </ImageBackground>
   );
 };
+
 export default LoginPage;

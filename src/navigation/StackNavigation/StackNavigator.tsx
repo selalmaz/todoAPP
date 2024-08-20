@@ -16,7 +16,7 @@ const StackNavigator = () => {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName="Api">
+        initialRouteName="Login">
         <Stack.Screen name="Api" component={GetApiPage}></Stack.Screen>
         <Stack.Screen name="Register" component={RegisterPage}></Stack.Screen>
         <Stack.Screen name="Login" component={LoginPage} />
