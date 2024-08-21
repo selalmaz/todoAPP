@@ -1,19 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, Button, FlatList, Text, View} from 'react-native';
-import ApiCard from '../../components/ApiCard';
-import styles from './getApiPage.style';
+import ApiCard from '../../components/apiCard/Index';
+import styles from './GetApiPage.style';
 import {fetchData} from '../../services/axios/getData';
 import {useDispatch, useSelector} from 'react-redux';
 import {ApiCardProps} from '../../types';
-import {StateType} from '../../redux/Store';
-import Input from '../../components/Input';
-import MyButton from '../../components/Mybutton/Mybutton';
+import {StateType} from '../../redux/TaskStore';
+import Input from '../../components/input/Index';
+import MyButton from '../../components/mybutton/Mybutton';
 
 const GetApiPage = () => {
-  const loading = useSelector((state: StateType) => state.loading.isLoading);
+  const loading = useSelector((state: StateType) => state.Tasks.isLoading);
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
-  const data = useSelector((state: StateType) => state.tasklist.items);
+  const data = useSelector((state: StateType) => state.Tasks.items);
   const dispatch = useDispatch();
 
   useEffect(() => {

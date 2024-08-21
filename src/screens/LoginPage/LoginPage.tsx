@@ -4,31 +4,28 @@ import {
   Dimensions,
   Image,
   ImageBackground,
-  Keyboard,
   KeyboardAvoidingView,
-  Platform,
   SafeAreaView,
   ScrollView,
   Text,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useDispatch, useSelector} from 'react-redux';
-import Input from '../../components/Input/Input';
-import MyButton from '../../components/Mybutton/Mybutton';
+import Input from '../../components/input/Input';
+import MyButton from '../../components/mybutton/Mybutton';
 import style from './LoginPage.style';
-import {signInUser} from '../../services/firebase/auth';
+import {signUpWithEmail} from '../../services/firebase/firebaseAuth';
 import {StackParamList} from '../../types';
-import {StateType} from '../../redux/Store';
+import {StateType} from '../../redux/TaskStore';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const {width, height} = Dimensions.get('window');
-  const isLoading = useSelector((state: StateType) => state.loading.isLoading);
+  const isLoading = useSelector((state: StateType) => state.Tasks.isLoading);
 
   const dispatch = useDispatch();
   const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
@@ -37,11 +34,11 @@ const LoginPage = () => {
     navigation.navigate('Register');
   }
 
-  const handleLogin = () => {
-    signInUser(email, password, navigation, dispatch);
+  function handleLogin() {
+    signUpWithEmail(email, password, navigation, dispatch);
     setEmail('');
     setPassword('');
-  };
+  }
 
   return (
     <ImageBackground

@@ -30,12 +30,9 @@ export type CardProps = {
 };
 
 export type TaskState = {
-  complete: number;
-  items: ApiCardProps[];
-};
-
-export type LoadingState = {
   isLoading: boolean;
+  items: ApiCardProps[];
+  userTaskItems: CardProps[];
 };
 
 export type ApiCardProps = {

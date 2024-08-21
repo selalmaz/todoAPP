@@ -2,10 +2,10 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import {StackParamList} from '../../types';
-import LoginPage from '../../screens/LoginPage';
-import TabNavigator from '../TabNavigation/TabNavigator';
-import RegisterPage from '../../screens/RegisterPage';
-import GetApiPage from '../../screens/getApiPage/getApiPage';
+import LoginPage from '../../screens/loginPage/Index';
+import TabNavigator from '../tabNavigation/TabNavigator';
+import RegisterPage from '../../screens/registerPage/Index';
+import GetApiPage from '../../screens/getApiPage/GetApiPage';
 
 const Stack = createNativeStackNavigator<StackParamList>();
 

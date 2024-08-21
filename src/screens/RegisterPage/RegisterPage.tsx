@@ -5,21 +5,18 @@ import {
   Image,
   ImageBackground,
   View,
-  StyleSheet,
   KeyboardAvoidingView,
   ScrollView,
-  TouchableWithoutFeedback,
-  Keyboard,
 } from 'react-native';
-import {SafeAreaView, Text} from 'react-native';
-import Input from '../../components/Input';
-import MyButton from '../../components/Mybutton/Mybutton';
-import {createUser} from '../../services/firebase/auth';
+import {SafeAreaView} from 'react-native';
+import Input from '../../components/input/Index';
+import MyButton from '../../components/mybutton/Mybutton';
+import {createUserWithEmail} from '../../services/firebase/firebaseAuth';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {StackParamList} from '../../types';
 import {useDispatch, useSelector} from 'react-redux';
-import {StateType} from '../../redux/Store';
+import {StateType} from '../../redux/TaskStore';
 import styles from './RegisterPage.style';
 
 const RegisterPage = () => {
@@ -27,11 +24,11 @@ const RegisterPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
-  const isLoading = useSelector((state: StateType) => state.loading.isLoading);
+  const isLoading = useSelector((state: StateType) => state.Tasks.isLoading);
   const dispatch = useDispatch();
 
   function pressButton() {
-    createUser(email, password, navigation, dispatch);
+    createUserWithEmail(email, password, navigation, dispatch);
   }
 
   return (

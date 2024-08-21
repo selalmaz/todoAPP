@@ -1,14 +1,20 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {CardProps, TabParamList} from '../../types';
-import HomePage from '../../screens/HomePage';
-import TodoListPage from '../../screens/TodoListPage';
+import HomePage from '../../screens/homePage/Index';
+import TodoListPage from '../../screens/taskListPage/Index';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './TabNavigator.style';
+import {useSelector} from 'react-redux';
+import {StateType} from '../../redux/TaskStore';
 
 const Tab = createBottomTabNavigator<TabParamList>();
+let taskCount: number = 0;
 
 const TabNavigator = () => {
+  const userTask = useSelector((state: StateType) => state.Tasks.userTaskItems);
+  taskCount = userTask.filter(task => !task.isChecked).length;
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -36,7 +42,7 @@ const TabNavigator = () => {
           tabBarIcon: ({color, size}) => (
             <MaterialCommunityIcons name="home" color={color} size={size} />
           ),
-          tabBarBadge: 5,
+          tabBarBadge: taskCount,
         }}
       />
     </Tab.Navigator>

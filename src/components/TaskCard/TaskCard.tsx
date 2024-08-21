@@ -2,16 +2,17 @@ import React from 'react';
 import {Alert, Text, TouchableOpacity, View} from 'react-native';
 import CheckBox from 'react-native-check-box';
 import {useDispatch, useSelector} from 'react-redux';
-import {StateType} from '../../redux/Store';
-import {completeTask, unCompleteTask} from '../../redux/Slice';
-import {deleteTask, updateDB} from '../../services/firebase/database';
+import {StateType} from '../../redux/TaskStore';
+import {
+  deleteTodoById,
+  updateTaskStatus,
+} from '../../services/firebase/firebaseDatabase';
 import style from './TaskCard.style';
 import {CardProps} from '../../types';
 import {ActivityIndicator} from 'react-native';
 
 const TaskCard = (props: CardProps) => {
-  const isLoading = useSelector((state: StateType) => state.loading.isLoading);
-
+  const isLoading = useSelector((state: StateType) => state.Tasks.isLoading);
   const dispact = useDispatch();
 
   const handleDelete = () =>
@@ -23,21 +24,19 @@ const TaskCard = (props: CardProps) => {
       {
         text: 'Tamam',
         onPress: async () => {
-          await deleteTask(props.id, dispact);
+          await deleteTodoById(props.id, dispact);
         },
       },
     ]);
   const handleComplete = () => {
     if (!props.isChecked) {
-      dispact(completeTask());
-      updateDB(props.id, true, dispact);
+      updateTaskStatus(props.id, true, dispact);
     } else {
-      dispact(unCompleteTask());
-      updateDB(props.id, false, dispact);
+      updateTaskStatus(props.id, false, dispact);
     }
   };
 
-  const handleDeletePress = props.isChecked ? () => {} : handleDelete;
+  // const handleDeletePress = props.isChecked ? () => {} : handleDelete;
 
   return (
     <View style={[style.container, props.isChecked && style.checked]}>
@@ -54,9 +53,7 @@ const TaskCard = (props: CardProps) => {
           <Text style={[style.task, props.isChecked && style.checkedText]}>
             {props.task}
           </Text>
-          <TouchableOpacity
-            onPress={handleDeletePress}
-            style={style.deleteButton}>
+          <TouchableOpacity onPress={handleDelete} style={style.deleteButton}>
             <Text style={style.deleteButtonText}>x</Text>
           </TouchableOpacity>
         </View>

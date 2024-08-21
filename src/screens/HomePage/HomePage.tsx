@@ -11,15 +11,16 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
-import Input from '../../components/Input';
-import MyButton from '../../components/Mybutton/Mybutton';
-import {signOutUser} from '../../services/firebase/auth';
+import Input from '../../components/input/Index';
+import MyButton from '../../components/mybutton/Mybutton';
+import {signOutUser} from '../../services/firebase/firebaseAuth';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {StackParamList} from '../../types';
-import {adDB} from '../../services/firebase/database';
-import {useDispatch} from 'react-redux';
+import {addTaskToDatabase} from '../../services/firebase/firebaseDatabase';
+import {useDispatch, useSelector} from 'react-redux';
 import styles from './HomePage.style';
+import {StateType} from '../../redux/TaskStore';
 
 const HomePage = () => {
   const [inputValue, setInputValue] = useState('');
@@ -29,7 +30,7 @@ const HomePage = () => {
   const {width, height} = Dimensions.get('window');
 
   function onPress() {
-    adDB(inputValue, dispatch);
+    addTaskToDatabase(inputValue, dispatch);
     setInputValue(''); // Input değerini sıfırla
     Keyboard.dismiss(); // Klavyeyi kapat
   }
@@ -59,6 +60,7 @@ const HomePage = () => {
               value={inputValue}
               onChange={text => setInputValue(text)}
             />
+
             <MyButton title="Taski ekle" onPress={onPress} theme="primary" />
             <MyButton title="Çıkış Yap" onPress={signOut} theme="secondry" />
           </View>

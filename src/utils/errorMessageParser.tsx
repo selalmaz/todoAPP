@@ -16,6 +16,5 @@ export default function (erroCode: any) {
 
     default:
       return erroCode;
-      break;
   }
 }

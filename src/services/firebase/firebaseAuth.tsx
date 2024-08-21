@@ -1,13 +1,13 @@
 import auth from '@react-native-firebase/auth';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {StackParamList} from '../../types';
-import {startLoading, stopLoading} from '../../redux/Slice2';
+import {startLoading, stopLoading} from '../../redux/TaskSlice';
 import {Dispatch} from 'redux';
 
 import {showMessage} from 'react-native-flash-message';
 import errorMessageParser from '../../utils/errorMessageParser';
 
-export const createUser = (
+export const createUserWithEmail = (
   email: string,
   password: string,
   navigation: NativeStackNavigationProp<StackParamList>,
@@ -44,7 +44,7 @@ export const createUser = (
     });
 };
 
-export const signInUser = (
+export const signUpWithEmail = (
   email: string,
   password: string,
   navigation: NativeStackNavigationProp<StackParamList>,

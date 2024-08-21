@@ -2,9 +2,9 @@ import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import parseTaskData from '../../utils/parseTaskData';
 import {Dispatch} from 'react';
-import {startLoading, stopLoading} from '../../redux/Slice2';
+import {startLoading, stopLoading} from '../../redux/TaskSlice';
 
-export const adDB = (task: string, dispatch: Dispatch<any>) => {
+export const addTaskToDatabase = (task: string, dispatch: Dispatch<any>) => {
   const uid = auth().currentUser?.uid;
 
   dispatch(startLoading());
@@ -13,22 +13,20 @@ export const adDB = (task: string, dispatch: Dispatch<any>) => {
     .ref(uid + '/')
     .push();
 
-  newReference
-    .set({
+  try {
+    newReference.set({
       task: task,
       complete: false,
-    })
-    .then(() => {
-      console.log('data updated.' + task);
-      dispatch(stopLoading());
-    })
-    .catch(err => {
-      console.log(err);
-      dispatch(stopLoading());
     });
+    console.log('Data added: ' + task);
+  } catch (err) {
+    console.log('Error:', err);
+  } finally {
+    dispatch(stopLoading());
+  }
 };
 
-export const readData = async (dispatch: Dispatch<any>) => {
+export const fetchTaskData = async (dispatch: Dispatch<any>) => {
   const uid = auth().currentUser?.uid;
 
   try {
@@ -45,7 +43,7 @@ export const readData = async (dispatch: Dispatch<any>) => {
     return []; // hata olıursa bos deger
   }
 };
-export const updateDB = async (
+export const updateTaskStatus = async (
   taskId: string,
   isChecked: boolean,
   dispatch: Dispatch<any>,
@@ -59,7 +57,7 @@ export const updateDB = async (
       .update({
         complete: isChecked,
       });
-    console.log('task update.' + taskId + isChecked);
+    console.log('task update.' + taskId + ' ' + isChecked);
     dispatch(stopLoading());
   } catch (err) {
     console.log(err);
@@ -67,7 +65,10 @@ export const updateDB = async (
   }
 };
 
-export const deleteTask = async (taskId: string, dispatch: Dispatch<any>) => {
+export const deleteTodoById = async (
+  taskId: string,
+  dispatch: Dispatch<any>,
+) => {
   const uid = auth().currentUser?.uid;
   dispatch(startLoading());
 
