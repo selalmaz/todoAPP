@@ -5,12 +5,11 @@ import {Dispatch} from 'react';
 import {startLoading, stopLoading} from '../../redux/TaskSlice';
 
 export const addTaskToDatabase = (task: string, dispatch: Dispatch<any>) => {
-  const uid = auth().currentUser?.uid;
-
   dispatch(startLoading());
+  const currentUserID = auth().currentUser?.uid;
 
   const newReference = database()
-    .ref(uid + '/')
+    .ref(currentUserID + '/')
     .push();
 
   try {
@@ -26,12 +25,12 @@ export const addTaskToDatabase = (task: string, dispatch: Dispatch<any>) => {
   }
 };
 
-export const fetchTaskData = async (dispatch: Dispatch<any>) => {
-  const uid = auth().currentUser?.uid;
+export const fetchTaskData = async () => {
+  const currentUserID = auth().currentUser?.uid;
 
   try {
     const snapshot = await database()
-      .ref(uid + '/')
+      .ref(currentUserID + '/')
       .once('value');
     const parsedData = parseTaskData(snapshot.val());
     // console.log('User data: ', parsedData);
@@ -39,8 +38,6 @@ export const fetchTaskData = async (dispatch: Dispatch<any>) => {
     return parsedData;
   } catch (err) {
     console.log(err);
-    dispatch(stopLoading());
-    return []; // hata olıursa bos deger
   }
 };
 export const updateTaskStatus = async (
@@ -48,19 +45,20 @@ export const updateTaskStatus = async (
   isChecked: boolean,
   dispatch: Dispatch<any>,
 ) => {
-  const uid = auth().currentUser?.uid;
+  const currentUserID = auth().currentUser?.uid;
+
   dispatch(startLoading());
 
   try {
     await database()
-      .ref(uid + '/' + taskId)
+      .ref(currentUserID + '/' + taskId)
       .update({
         complete: isChecked,
       });
     console.log('task update.' + taskId + ' ' + isChecked);
-    dispatch(stopLoading());
   } catch (err) {
     console.log(err);
+  } finally {
     dispatch(stopLoading());
   }
 };
@@ -69,17 +67,17 @@ export const deleteTodoById = async (
   taskId: string,
   dispatch: Dispatch<any>,
 ) => {
-  const uid = auth().currentUser?.uid;
   dispatch(startLoading());
+  const currentUserID = auth().currentUser?.uid;
 
   try {
     await database()
-      .ref(uid + '/' + taskId)
+      .ref(currentUserID + '/' + taskId)
       .remove();
     console.log('task delete success.');
-    dispatch(stopLoading());
   } catch (err) {
     console.log(err);
+  } finally {
     dispatch(stopLoading());
   }
 };

@@ -1,7 +1,12 @@
 import auth from '@react-native-firebase/auth';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {StackParamList} from '../../types';
-import {startLoading, stopLoading} from '../../redux/TaskSlice';
+import {
+  setLoginMail,
+  setLoginPassword,
+  startLoading,
+  stopLoading,
+} from '../../redux/TaskSlice';
 import {Dispatch} from 'redux';
 
 import {showMessage} from 'react-native-flash-message';
@@ -27,19 +32,22 @@ export const createUserWithEmail = (
     .createUserWithEmailAndPassword(email, password)
     .then(res => {
       console.log(res);
-      navigation.navigate('Home');
+      navigation.pop();
+      navigation.replace('Home');
+
       showMessage({
         message: 'Hesap oluşturma başarılı',
         type: 'info',
       });
-      dispatch(stopLoading());
     })
     .catch(err => {
       console.log(err.message);
       showMessage({
-        message: errorMessageParser(err.code),
+        message: errorMessageParser(err),
         type: 'danger',
       });
+    })
+    .finally(() => {
       dispatch(stopLoading());
     });
 };
@@ -64,21 +72,24 @@ export const signUpWithEmail = (
     .signInWithEmailAndPassword(email, password)
     .then(res => {
       console.log('Giris islemi basarili ' + res.user.email);
-      dispatch(stopLoading());
+      dispatch(setLoginMail(''));
+      dispatch(setLoginPassword(''));
       showMessage({
         message: 'Giriş işlemi başarili',
         type: 'info',
       });
-      navigation.navigate('Home');
+      navigation.replace('Home');
     })
     .catch(err => {
       console.log(err);
-      dispatch(stopLoading());
-
+      dispatch(setLoginPassword(''));
       showMessage({
-        message: errorMessageParser(err.code),
+        message: errorMessageParser(err),
         type: 'danger',
       });
+    })
+    .finally(() => {
+      dispatch(stopLoading());
     });
 };
 
@@ -93,19 +104,20 @@ export const signOutUser = (
     .signOut()
     .then(res => {
       console.log('cikis basarili\naktif hesap: ' + auth().currentUser + res);
-      navigation.navigate('Login');
+      navigation.replace('Login');
       showMessage({
         message: 'Cikis islemi basarili',
         type: 'info',
       });
-      dispatch(stopLoading());
     })
     .catch(err => {
       console.log(err);
       showMessage({
-        message: errorMessageParser(err.code),
+        message: errorMessageParser(err),
         type: 'danger',
       });
+    })
+    .finally(() => {
       dispatch(stopLoading());
     });
 };

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Dimensions,
   Image,
@@ -6,10 +6,8 @@ import {
   SafeAreaView,
   View,
   KeyboardAvoidingView,
-  TouchableWithoutFeedback,
   Keyboard,
-  StyleSheet,
-  ScrollView,
+  BackHandler,
 } from 'react-native';
 import Input from '../../components/input/Index';
 import MyButton from '../../components/mybutton/Mybutton';
@@ -20,23 +18,24 @@ import {StackParamList} from '../../types';
 import {addTaskToDatabase} from '../../services/firebase/firebaseDatabase';
 import {useDispatch, useSelector} from 'react-redux';
 import styles from './HomePage.style';
-import {StateType} from '../../redux/TaskStore';
+import useAlert from '../../hooks/UseAlert';
+
+const {width, height} = Dimensions.get('window');
 
 const HomePage = () => {
   const [inputValue, setInputValue] = useState('');
   const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
   const dispatch = useDispatch();
 
-  const {width, height} = Dimensions.get('window');
-
+  const signOut = useAlert(
+    'Uyari',
+    'Çıkış yapmak istediğinize emin misiniz?',
+    () => signOutUser(navigation, dispatch),
+  );
   function onPress() {
     addTaskToDatabase(inputValue, dispatch);
-    setInputValue(''); // Input değerini sıfırla
-    Keyboard.dismiss(); // Klavyeyi kapat
-  }
-
-  function signOut() {
-    signOutUser(navigation, dispatch);
+    setInputValue('');
+    Keyboard.dismiss();
   }
 
   return (

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
+  BackHandler,
   Dimensions,
   ImageBackground,
   SafeAreaView,
@@ -25,7 +26,7 @@ const TodoListPage = () => {
   const dispatch = useDispatch();
 
   const fetchData = async () => {
-    dispatch(setUserTasks(await fetchTaskData(dispatch)));
+    dispatch(setUserTasks(await fetchTaskData()));
     userTaskCount = userTasks.filter(task => !task.isChecked).length;
   };
 
@@ -45,7 +46,7 @@ const TodoListPage = () => {
           </Text>
           <View style={style.taskContainer}>
             {isLoading ? (
-              <ActivityIndicator size="large" color="red"></ActivityIndicator>
+              <ActivityIndicator size="large" color="cyan"></ActivityIndicator>
             ) : (
               <FlatList
                 data={userTasks}

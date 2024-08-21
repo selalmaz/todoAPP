@@ -33,6 +33,8 @@ export type TaskState = {
   isLoading: boolean;
   items: ApiCardProps[];
   userTaskItems: CardProps[];
+  loginMail: string;
+  loginPassword: string;
 };
 
 export type ApiCardProps = {

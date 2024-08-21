@@ -1,4 +1,5 @@
 export default function parseTaskData(data: any) {
+  if (!data) return [];
   return Object.keys(data).map(key => ({
     //bu fonk db den gelen json tipli veriyi arraya cevırmek icin
     id: key, //object.key -> keyleri array yapısınd return eder

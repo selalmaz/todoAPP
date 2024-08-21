@@ -29,7 +29,7 @@ export default StyleSheet.create({
 
   buttonContainer: {
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     width: '100%',
     height: '20%',
   },
