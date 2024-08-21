@@ -8,9 +8,7 @@ import {
   stopLoading,
 } from '../../redux/TaskSlice';
 import {Dispatch} from 'redux';
-
-import {showMessage} from 'react-native-flash-message';
-import errorMessageParser from '../../utils/errorMessageParser';
+import showUserMessage from '../../utils/showUserMessage';
 
 export const createUserWithEmail = (
   email: string,
@@ -18,15 +16,12 @@ export const createUserWithEmail = (
   navigation: NativeStackNavigationProp<StackParamList>,
   dispatch: Dispatch, // dispatch i eklendi hook hatası verdigi icin parametre olarka alıyorum
 ) => {
+  dispatch(startLoading());
+
   if (!email || !password) {
-    showMessage({
-      message: 'MAIL VEYA SİFRE BOS !!!',
-      type: 'danger',
-    });
+    showUserMessage('Lütfen zorunlu alanları doldurun');
     return;
   }
-
-  dispatch(startLoading());
 
   auth()
     .createUserWithEmailAndPassword(email, password)
@@ -35,17 +30,11 @@ export const createUserWithEmail = (
       navigation.pop();
       navigation.replace('Home');
 
-      showMessage({
-        message: 'Hesap oluşturma başarılı',
-        type: 'info',
-      });
+      showUserMessage('İşlem başarili', 'info');
     })
     .catch(err => {
       console.log(err.message);
-      showMessage({
-        message: errorMessageParser(err),
-        type: 'danger',
-      });
+      showUserMessage(err);
     })
     .finally(() => {
       dispatch(stopLoading());
@@ -59,13 +48,9 @@ export const signUpWithEmail = (
   dispatch: Dispatch,
 ) => {
   if (!email || !password) {
-    showMessage({
-      message: 'MAIL VEYA SİFRE BOS !!!',
-      type: 'danger',
-    });
+    showUserMessage('Lütfen zorunlu alanları doldurun');
     return;
   }
-
   dispatch(startLoading());
 
   auth()
@@ -74,19 +59,12 @@ export const signUpWithEmail = (
       console.log('Giris islemi basarili ' + res.user.email);
       dispatch(setLoginMail(''));
       dispatch(setLoginPassword(''));
-      showMessage({
-        message: 'Giriş işlemi başarili',
-        type: 'info',
-      });
+      showUserMessage('Giriş işlemi başarılı', 'info');
       navigation.replace('Home');
     })
     .catch(err => {
-      console.log(err);
+      showUserMessage(err);
       dispatch(setLoginPassword(''));
-      showMessage({
-        message: errorMessageParser(err),
-        type: 'danger',
-      });
     })
     .finally(() => {
       dispatch(stopLoading());
@@ -105,17 +83,11 @@ export const signOutUser = (
     .then(res => {
       console.log('cikis basarili\naktif hesap: ' + auth().currentUser + res);
       navigation.replace('Login');
-      showMessage({
-        message: 'Cikis islemi basarili',
-        type: 'info',
-      });
+      showUserMessage('İşlem başarili', 'info');
     })
     .catch(err => {
       console.log(err);
-      showMessage({
-        message: errorMessageParser(err),
-        type: 'danger',
-      });
+      showUserMessage(err);
     })
     .finally(() => {
       dispatch(stopLoading());
