@@ -7,7 +7,6 @@ import {
   View,
   KeyboardAvoidingView,
   Keyboard,
-  BackHandler,
 } from 'react-native';
 import Input from '../../components/input/Index';
 import MyButton from '../../components/mybutton/Mybutton';
@@ -16,7 +15,7 @@ import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {StackParamList} from '../../types';
 import {addTaskToDatabase} from '../../services/firebase/firebaseDatabase';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import styles from './HomePage.style';
 import useAlert from '../../hooks/UseAlert';
 
@@ -32,7 +31,7 @@ const HomePage = () => {
     'Çıkış yapmak istediğinize emin misiniz?',
     () => signOutUser(navigation, dispatch),
   );
-  function onPress() {
+  function addToTaskPressButton() {
     addTaskToDatabase(inputValue, dispatch);
     setInputValue('');
     Keyboard.dismiss();
@@ -60,7 +59,11 @@ const HomePage = () => {
               onChange={text => setInputValue(text)}
             />
 
-            <MyButton title="Taski ekle" onPress={onPress} theme="primary" />
+            <MyButton
+              title="Taski ekle"
+              onPress={addToTaskPressButton}
+              theme="primary"
+            />
             <MyButton title="Çıkış Yap" onPress={signOut} theme="secondry" />
           </View>
         </SafeAreaView>

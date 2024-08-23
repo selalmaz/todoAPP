@@ -20,16 +20,12 @@ import {StateType} from '../../redux/TaskStore';
 import styles from './RegisterPage.style';
 
 const RegisterPage = () => {
-  const {width, height} = Dimensions.get('window');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
   const isLoading = useSelector((state: StateType) => state.Tasks.isLoading);
+  const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
   const dispatch = useDispatch();
-
-  function pressButton() {
-    createUserWithEmail(email, password, navigation, dispatch);
-  }
+  const {width, height} = Dimensions.get('window');
 
   return (
     <ImageBackground
@@ -54,11 +50,13 @@ const RegisterPage = () => {
                 placeHolder="Mail giriniz"
                 onChange={mail => setEmail(mail)}
                 value={email}
+                inputMode="email"
               />
               <Input
                 placeHolder="Şifre giriniz"
                 value={password}
                 onChange={password => setPassword(password)}
+                inputMode="text"
                 secureTextEntry={true}
               />
             </View>
@@ -71,7 +69,9 @@ const RegisterPage = () => {
                   title="Hesap Oluştur"
                   theme="primary"
                   navigateTo="Home"
-                  onPress={pressButton}
+                  onPress={() =>
+                    createUserWithEmail(email, password, navigation, dispatch)
+                  }
                 />
               )}
             </View>

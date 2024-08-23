@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {
   ActivityIndicator,
-  BackHandler,
   Dimensions,
   ImageBackground,
   SafeAreaView,
@@ -17,13 +16,13 @@ import {setUserTasks} from '../../redux/TaskSlice';
 import {StateType} from '../../redux/TaskStore';
 
 const {width, height} = Dimensions.get('window');
-let userTaskCount: number = 0;
 
 const TodoListPage = () => {
   const state = useSelector((state: StateType) => state.Tasks);
   const isLoading = state.isLoading;
   const userTasks = state.userTaskItems;
   const dispatch = useDispatch();
+  let userTaskCount: number = 0;
 
   const fetchData = async () => {
     dispatch(setUserTasks(await fetchTaskData()));

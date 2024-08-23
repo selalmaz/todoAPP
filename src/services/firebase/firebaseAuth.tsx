@@ -20,6 +20,7 @@ export const createUserWithEmail = (
 
   if (!email || !password) {
     showUserMessage('Lütfen zorunlu alanları doldurun');
+    dispatch(stopLoading());
     return;
   }
 
@@ -29,7 +30,6 @@ export const createUserWithEmail = (
       console.log(res);
       navigation.pop();
       navigation.replace('Home');
-
       showUserMessage('İşlem başarili', 'info');
     })
     .catch(err => {
@@ -47,11 +47,13 @@ export const signUpWithEmail = (
   navigation: NativeStackNavigationProp<StackParamList>,
   dispatch: Dispatch,
 ) => {
+  dispatch(startLoading());
+
   if (!email || !password) {
     showUserMessage('Lütfen zorunlu alanları doldurun');
+    dispatch(stopLoading());
     return;
   }
-  dispatch(startLoading());
 
   auth()
     .signInWithEmailAndPassword(email, password)

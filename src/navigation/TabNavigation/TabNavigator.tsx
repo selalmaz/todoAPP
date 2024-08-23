@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {CardProps, TabParamList} from '../../types';
+import {TaskCardProps, TabParamList} from '../../types';
 import HomePage from '../../screens/homePage/Index';
 import TodoListPage from '../../screens/taskListPage/Index';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';

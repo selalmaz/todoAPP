@@ -8,10 +8,10 @@ import {
   updateTaskStatus,
 } from '../../services/firebase/firebaseDatabase';
 import style from './TaskCard.style';
-import {CardProps} from '../../types';
+import {TaskCardProps} from '../../types';
 import useAlert from '../../hooks/UseAlert';
 
-const TaskCard = (props: CardProps) => {
+const TaskCard = (props: TaskCardProps) => {
   const dispact = useDispatch();
 
   const handleDelete = useAlert(
@@ -22,19 +22,11 @@ const TaskCard = (props: CardProps) => {
     },
   );
 
-  const handleComplete = () => {
-    if (!props.isChecked) {
-      updateTaskStatus(props.id, true, dispact);
-    } else {
-      updateTaskStatus(props.id, false, dispact);
-    }
-  };
-
   return (
     <View style={[style.container, props.isChecked && style.checked]}>
       <View style={style.innerContainer}>
         <CheckBox
-          onClick={handleComplete}
+          onClick={() => updateTaskStatus(props.id, !props.isChecked, dispact)}
           isChecked={props.isChecked}
           style={style.checkbox}
           checkBoxColor="#3B82F6"

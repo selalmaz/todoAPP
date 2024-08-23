@@ -52,12 +52,14 @@ const LoginPage = () => {
 
             <View style={style.inputContainer}>
               <Input
+                inputMode="email"
                 placeHolder="Mail giriniz"
                 onChange={mail => dispatch(setLoginMail(mail))}
                 value={loginMail}
               />
               <Input
                 placeHolder="Şifre giriniz"
+                inputMode="text"
                 value={loginPassword}
                 onChange={password => dispatch(setLoginPassword(password))}
                 secureTextEntry={true}

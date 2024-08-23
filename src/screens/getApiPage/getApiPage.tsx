@@ -40,8 +40,10 @@ const GetApiPage = () => {
         <Input
           value={name}
           placeHolder="adinizi giriniz"
+          inputMode="text"
           onChange={text => setName(text)}></Input>
         <Input
+          inputMode="text"
           placeHolder="soyadinizi giriniz"
           value={surname}
           onChange={text => setSurname(text)}></Input>
