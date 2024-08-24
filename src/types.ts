@@ -1,3 +1,5 @@
+import {InputModeOptions} from 'react-native';
+
 export type StackParamList = {
   Login: undefined;
   Register: undefined;
@@ -11,9 +13,10 @@ export type TabParamList = {
 };
 export type inputProps = {
   placeHolder: string;
-  value?: string;
+  value: string;
   onChange: (text: string) => void;
   secureTextEntry?: boolean; // şifre için opsiyonel prop
+  inputMode: InputModeOptions;
 };
 
 export type buttonProps = {
@@ -23,19 +26,18 @@ export type buttonProps = {
   onPress?: () => void; //
 };
 
-export type CardProps = {
+export type TaskCardProps = {
   task: string;
   id: string;
   isChecked: boolean;
 };
 
 export type TaskState = {
-  complete: number;
-  items: ApiCardProps[];
-};
-
-export type LoadingState = {
   isLoading: boolean;
+  items: ApiCardProps[];
+  userTaskItems: TaskCardProps[];
+  loginMail: string;
+  loginPassword: string;
 };
 
 export type ApiCardProps = {

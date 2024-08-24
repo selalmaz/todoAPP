@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Dimensions,
   Image,
@@ -6,36 +6,35 @@ import {
   SafeAreaView,
   View,
   KeyboardAvoidingView,
-  TouchableWithoutFeedback,
   Keyboard,
-  StyleSheet,
-  ScrollView,
 } from 'react-native';
-import Input from '../../components/Input';
-import MyButton from '../../components/Mybutton/Mybutton';
-import {signOutUser} from '../../services/firebase/auth';
+import Input from '../../components/input/Index';
+import MyButton from '../../components/mybutton/Mybutton';
+import {signOutUser} from '../../services/firebase/firebaseAuth';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {StackParamList} from '../../types';
-import {adDB} from '../../services/firebase/database';
+import {addTaskToDatabase} from '../../services/firebase/firebaseDatabase';
 import {useDispatch} from 'react-redux';
 import styles from './HomePage.style';
+import useAlert from '../../hooks/UseAlert';
+
+const {width, height} = Dimensions.get('window');
 
 const HomePage = () => {
   const [inputValue, setInputValue] = useState('');
   const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
   const dispatch = useDispatch();
 
-  const {width, height} = Dimensions.get('window');
-
-  function onPress() {
-    adDB(inputValue, dispatch);
-    setInputValue(''); // Input değerini sıfırla
-    Keyboard.dismiss(); // Klavyeyi kapat
-  }
-
-  function signOut() {
-    signOutUser(navigation, dispatch);
+  const signOut = useAlert(
+    'Uyari',
+    'Çıkış yapmak istediğinize emin misiniz?',
+    () => signOutUser(navigation, dispatch),
+  );
+  function addToTaskPressButton() {
+    addTaskToDatabase(inputValue, dispatch);
+    setInputValue('');
+    Keyboard.dismiss();
   }
 
   return (
@@ -59,7 +58,12 @@ const HomePage = () => {
               value={inputValue}
               onChange={text => setInputValue(text)}
             />
-            <MyButton title="Taski ekle" onPress={onPress} theme="primary" />
+
+            <MyButton
+              title="Taski ekle"
+              onPress={addToTaskPressButton}
+              theme="primary"
+            />
             <MyButton title="Çıkış Yap" onPress={signOut} theme="secondry" />
           </View>
         </SafeAreaView>

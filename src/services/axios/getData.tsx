@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {Dispatch} from 'react';
-import {startLoading, stopLoading} from '../../redux/Slice2';
-import {setData} from '../../redux/Slice';
+import {startLoading, stopLoading} from '../../redux/TaskSlice';
+import {setData} from '../../redux/TaskSlice';
 
 const URL = 'http://10.0.2.2:3000/users';
 

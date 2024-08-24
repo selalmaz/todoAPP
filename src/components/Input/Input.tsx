@@ -11,7 +11,8 @@ const Input = (props: inputProps) => {
         value={props.value}
         placeholder={props.placeHolder}
         onChangeText={props.onChange}
-        secureTextEntry={props.secureTextEntry} // varsayılan degerr
+        inputMode={props.inputMode}
+        secureTextEntry={props.secureTextEntry}
       />
     </View>
   );

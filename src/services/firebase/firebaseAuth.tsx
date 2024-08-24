@@ -1,84 +1,75 @@
 import auth from '@react-native-firebase/auth';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {StackParamList} from '../../types';
-import {startLoading, stopLoading} from '../../redux/Slice2';
+import {
+  setLoginMail,
+  setLoginPassword,
+  startLoading,
+  stopLoading,
+} from '../../redux/TaskSlice';
 import {Dispatch} from 'redux';
+import showUserMessage from '../../utils/showUserMessage';
 
-import {showMessage} from 'react-native-flash-message';
-import errorMessageParser from '../../utils/errorMessageParser';
-
-export const createUser = (
+export const createUserWithEmail = (
   email: string,
   password: string,
   navigation: NativeStackNavigationProp<StackParamList>,
   dispatch: Dispatch, // dispatch i eklendi hook hatası verdigi icin parametre olarka alıyorum
 ) => {
+  dispatch(startLoading());
+
   if (!email || !password) {
-    showMessage({
-      message: 'MAIL VEYA SİFRE BOS !!!',
-      type: 'danger',
-    });
+    showUserMessage('Lütfen zorunlu alanları doldurun');
+    dispatch(stopLoading());
     return;
   }
-
-  dispatch(startLoading());
 
   auth()
     .createUserWithEmailAndPassword(email, password)
     .then(res => {
       console.log(res);
-      navigation.navigate('Home');
-      showMessage({
-        message: 'Hesap oluşturma başarılı',
-        type: 'info',
-      });
-      dispatch(stopLoading());
+      navigation.pop();
+      navigation.replace('Home');
+      showUserMessage('İşlem başarili', 'info');
     })
     .catch(err => {
       console.log(err.message);
-      showMessage({
-        message: errorMessageParser(err.code),
-        type: 'danger',
-      });
+      showUserMessage(err);
+    })
+    .finally(() => {
       dispatch(stopLoading());
     });
 };
 
-export const signInUser = (
+export const signUpWithEmail = (
   email: string,
   password: string,
   navigation: NativeStackNavigationProp<StackParamList>,
   dispatch: Dispatch,
 ) => {
+  dispatch(startLoading());
+
   if (!email || !password) {
-    showMessage({
-      message: 'MAIL VEYA SİFRE BOS !!!',
-      type: 'danger',
-    });
+    showUserMessage('Lütfen zorunlu alanları doldurun');
+    dispatch(stopLoading());
     return;
   }
-
-  dispatch(startLoading());
 
   auth()
     .signInWithEmailAndPassword(email, password)
     .then(res => {
       console.log('Giris islemi basarili ' + res.user.email);
-      dispatch(stopLoading());
-      showMessage({
-        message: 'Giriş işlemi başarili',
-        type: 'info',
-      });
-      navigation.navigate('Home');
+      dispatch(setLoginMail(''));
+      dispatch(setLoginPassword(''));
+      showUserMessage('Giriş işlemi başarılı', 'info');
+      navigation.replace('Home');
     })
     .catch(err => {
-      console.log(err);
+      showUserMessage(err);
+      dispatch(setLoginPassword(''));
+    })
+    .finally(() => {
       dispatch(stopLoading());
-
-      showMessage({
-        message: errorMessageParser(err.code),
-        type: 'danger',
-      });
     });
 };
 
@@ -93,19 +84,14 @@ export const signOutUser = (
     .signOut()
     .then(res => {
       console.log('cikis basarili\naktif hesap: ' + auth().currentUser + res);
-      navigation.navigate('Login');
-      showMessage({
-        message: 'Cikis islemi basarili',
-        type: 'info',
-      });
-      dispatch(stopLoading());
+      navigation.replace('Login');
+      showUserMessage('İşlem başarili', 'info');
     })
     .catch(err => {
       console.log(err);
-      showMessage({
-        message: errorMessageParser(err.code),
-        type: 'danger',
-      });
+      showUserMessage(err);
+    })
+    .finally(() => {
       dispatch(stopLoading());
     });
 };
