@@ -7,6 +7,8 @@ const initialState: TaskState = {
   userTaskItems: [],
   loginMail: '',
   loginPassword: '',
+  registerMail: '',
+  registerPassword: '',
 };
 
 const taskSlice = createSlice({
@@ -33,6 +35,12 @@ const taskSlice = createSlice({
     setLoginPassword(state, action) {
       state.loginPassword = action.payload;
     },
+    setRegisterMail(state, action) {
+      state.registerMail = action.payload;
+    },
+    setRegisterPassword(state, action) {
+      state.registerPassword = action.payload;
+    },
   },
 });
 
@@ -43,5 +51,7 @@ export const {
   setUserTasks,
   setLoginMail,
   setLoginPassword,
+  setRegisterMail,
+  setRegisterPassword,
 } = taskSlice.actions;
 export default taskSlice;

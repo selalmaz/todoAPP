@@ -5,9 +5,7 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
-  container: {
-    flex: 1,
-  },
+
   innerContainer: {
     flex: 1,
     paddingHorizontal: 20,
@@ -16,16 +14,6 @@ export default StyleSheet.create({
   scrollViewContent: {
     flexGrow: 1,
   },
-  logoContainer: {
-    paddingTop: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-
-  inputContainer: {
-    marginBottom: 20,
-  },
 
   buttonContainer: {
     alignItems: 'center',
@@ -33,9 +21,7 @@ export default StyleSheet.create({
     width: '100%',
     height: '20%',
   },
-  signUpButton: {
-    alignSelf: 'flex-end',
-  },
+  signUpButton: {},
   signUpText: {
     color: 'white',
     fontSize: 16,

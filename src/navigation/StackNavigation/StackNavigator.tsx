@@ -5,7 +5,7 @@ import {StackParamList} from '../../types';
 import LoginPage from '../../screens/loginPage/Index';
 import TabNavigator from '../tabNavigation/TabNavigator';
 import RegisterPage from '../../screens/registerPage/Index';
-import GetApiPage from '../../screens/getApiPage/GetApiPage';
+import GetApiPage from '../../screens/getApiPage';
 
 const Stack = createNativeStackNavigator<StackParamList>();
 

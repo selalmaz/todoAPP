@@ -1,34 +1,30 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   ActivityIndicator,
-  Dimensions,
-  Image,
   ImageBackground,
   KeyboardAvoidingView,
   SafeAreaView,
   ScrollView,
+  View,
   Text,
   TouchableOpacity,
-  View,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useDispatch, useSelector} from 'react-redux';
-import Input from '../../components/input/Input';
 import MyButton from '../../components/mybutton/Mybutton';
 import style from './LoginPage.style';
 import {signUpWithEmail} from '../../services/firebase/firebaseAuth';
-import {StackParamList} from '../../types';
 import {StateType} from '../../redux/TaskStore';
-import {setLoginMail, setLoginPassword} from '../../redux/TaskSlice';
+import {StackParamList} from '../../types';
+import LoginHeader from '../../components/login&registerHeader/Login&registerHeader';
 
 const LoginPage = () => {
-  const {width, height} = Dimensions.get('window');
-  const state = useSelector((state: StateType) => state.Tasks);
-  const isLoading = state.isLoading;
-  const loginMail = state.loginMail;
-  const loginPassword = state.loginPassword;
+  const task = useSelector((state: StateType) => state.Tasks);
 
+  const isLoading = task.isLoading;
+  const loginMail = task.loginMail;
+  const loginPassword = task.loginPassword;
   const dispatch = useDispatch();
   const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
 
@@ -36,40 +32,14 @@ const LoginPage = () => {
     <ImageBackground
       source={require('../../assets/images/background.jpg')}
       style={style.background}>
-      <KeyboardAvoidingView behavior="padding" style={style.container}>
+      <KeyboardAvoidingView behavior="padding" style={{flex: 1}}>
         <SafeAreaView style={style.innerContainer}>
           <ScrollView contentContainerStyle={style.scrollViewContent}>
-            <View style={style.logoContainer}>
-              <Image
-                source={require('../../assets/images/logo_list.png')}
-                style={{
-                  width: width * 0.6,
-                  height: height * 0.3,
-                }}
-                resizeMode="contain"
-              />
-            </View>
-
-            <View style={style.inputContainer}>
-              <Input
-                inputMode="email"
-                placeHolder="Mail giriniz"
-                onChange={mail => dispatch(setLoginMail(mail))}
-                value={loginMail}
-              />
-              <Input
-                placeHolder="Şifre giriniz"
-                inputMode="text"
-                value={loginPassword}
-                onChange={password => dispatch(setLoginPassword(password))}
-                secureTextEntry={true}
-              />
-            </View>
-
+            <LoginHeader type="Login" />
             <View style={style.buttonContainer}>
               <TouchableOpacity
                 onPress={() => navigation.navigate('Register')}
-                style={style.signUpButton}>
+                style={{alignSelf: 'flex-end'}}>
                 <Text style={style.signUpText}>Hesap Oluştur</Text>
               </TouchableOpacity>
               {isLoading ? (
