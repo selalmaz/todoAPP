@@ -4,11 +4,11 @@ const useAlert = (title: string, message: string, onConfirm: () => void) => {
   const showAlert = () => {
     Alert.alert(title, message, [
       {
-        text: 'İptal',
+        text: 'Cancel',
         style: 'cancel',
       },
       {
-        text: 'Tamam',
+        text: 'OK',
         onPress: onConfirm,
       },
     ]);

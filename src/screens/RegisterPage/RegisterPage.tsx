@@ -1,76 +1,54 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   ActivityIndicator,
-  Dimensions,
-  Image,
   ImageBackground,
-  View,
   KeyboardAvoidingView,
+  SafeAreaView,
   ScrollView,
+  View,
 } from 'react-native';
-import {SafeAreaView} from 'react-native';
-import Input from '../../components/input/Index';
-import MyButton from '../../components/mybutton/Mybutton';
-import {createUserWithEmail} from '../../services/firebase/firebaseAuth';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {StackParamList} from '../../types';
 import {useDispatch, useSelector} from 'react-redux';
+import MyButton from '../../components/mybutton/Mybutton';
+import style from './RegisterPage.style';
+import {createUserWithEmail} from '../../services/firebase/firebaseAuth';
 import {StateType} from '../../redux/TaskStore';
-import styles from './RegisterPage.style';
+import {StackParamList} from '../../types';
+import RegisterHeader from '../../components/login&registerHeader/Login&registerHeader';
 
 const RegisterPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const isLoading = useSelector((state: StateType) => state.Tasks.isLoading);
-  const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
+  const task = useSelector((state: StateType) => state.Tasks);
+  const isLoading = task.isLoading;
+  const registerMail = task.registerMail;
+  const registerPassword = task.registerPassword;
   const dispatch = useDispatch();
-  const {width, height} = Dimensions.get('window');
+  const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
 
   return (
     <ImageBackground
       source={require('../../assets/images/background.jpg')}
-      style={styles.background}>
-      <KeyboardAvoidingView behavior="padding" style={styles.container}>
-        <SafeAreaView style={styles.innerContainer}>
-          <ScrollView contentContainerStyle={styles.scrollViewContent}>
-            <View style={styles.logoContainer}>
-              <Image
-                source={require('../../assets/images/logo_list.png')}
-                style={{
-                  width: width * 0.6,
-                  height: height * 0.3,
-                }}
-                resizeMode="contain"
-              />
-            </View>
+      style={style.background}>
+      <KeyboardAvoidingView behavior="padding" style={style.container}>
+        <SafeAreaView style={style.innerContainer}>
+          <ScrollView contentContainerStyle={style.scrollViewContent}>
+            <RegisterHeader type="Register" />
 
-            <View style={styles.inputContainer}>
-              <Input
-                placeHolder="Mail giriniz"
-                onChange={mail => setEmail(mail)}
-                value={email}
-                inputMode="email"
-              />
-              <Input
-                placeHolder="Şifre giriniz"
-                value={password}
-                onChange={password => setPassword(password)}
-                inputMode="text"
-                secureTextEntry={true}
-              />
-            </View>
-
-            <View style={styles.button}>
+            <View style={style.button}>
               {isLoading ? (
                 <ActivityIndicator size="large" color="cyan" />
               ) : (
                 <MyButton
-                  title="Hesap Oluştur"
+                  title="Create Account"
                   theme="primary"
                   navigateTo="Home"
                   onPress={() =>
-                    createUserWithEmail(email, password, navigation, dispatch)
+                    createUserWithEmail(
+                      registerMail,
+                      registerPassword,
+                      navigation,
+                      dispatch,
+                    )
                   }
                 />
               )}

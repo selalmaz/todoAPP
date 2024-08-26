@@ -41,7 +41,7 @@ const TodoListPage = () => {
         resizeMode="cover">
         <View style={style.innerContainer}>
           <Text style={style.header}>
-            Görevler (Aktif görevler: {userTaskCount})
+            Tasks (Active tasks: {userTaskCount})
           </Text>
           <View style={style.taskContainer}>
             {isLoading ? (

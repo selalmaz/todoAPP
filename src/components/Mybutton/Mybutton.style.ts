@@ -34,7 +34,7 @@ export default {
     ...baseStyle,
     button: {
       backgroundColor: 'white',
-      borderWidth: 4,
+      borderWidth: 1,
       borderColor: '#006894',
       ...baseStyle.button,
     },

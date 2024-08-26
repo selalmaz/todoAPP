@@ -1,17 +1,12 @@
 import {showMessage} from 'react-native-flash-message';
 
 function showUserMessage(
-  messageContent: Error | string,
+  messageContent: any,
   messageType: 'info' | 'danger' = 'danger',
 ) {
-  let formattedMessage = '';
-
-  if (messageContent instanceof Error) {
-    formattedMessage = messageContent.message.replace(/^\[.*\]\s*/, '');
-  } else formattedMessage = messageContent;
-
+  const message = messageContent as string;
   showMessage({
-    message: formattedMessage,
+    message: message,
     type: messageType,
   });
 }

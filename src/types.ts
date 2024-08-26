@@ -38,6 +38,8 @@ export type TaskState = {
   userTaskItems: TaskCardProps[];
   loginMail: string;
   loginPassword: string;
+  registerMail: string;
+  registerPassword: string;
 };
 
 export type ApiCardProps = {
