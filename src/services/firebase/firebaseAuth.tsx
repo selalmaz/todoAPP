@@ -10,38 +10,7 @@ import {
 import {Dispatch} from 'redux';
 import showUserMessage from '../../utils/showUserMessage';
 
-export const createUserWithEmail = (
-  email: string,
-  password: string,
-  navigation: NativeStackNavigationProp<StackParamList>,
-  dispatch: Dispatch, // dispatch i eklendi hook hatası verdigi icin parametre olarka alıyorum
-) => {
-  dispatch(startLoading());
-
-  if (!email || !password) {
-    showUserMessage('Lütfen zorunlu alanları doldurun');
-    dispatch(stopLoading());
-    return;
-  }
-
-  auth()
-    .createUserWithEmailAndPassword(email, password)
-    .then(res => {
-      console.log(res);
-      navigation.pop();
-      navigation.replace('Home');
-      showUserMessage('İşlem başarili', 'info');
-    })
-    .catch(err => {
-      console.log(err.message);
-      showUserMessage(err);
-    })
-    .finally(() => {
-      dispatch(stopLoading());
-    });
-};
-
-export const signUpWithEmail = (
+export const createUserWithEmail = async (
   email: string,
   password: string,
   navigation: NativeStackNavigationProp<StackParamList>,
@@ -50,48 +19,67 @@ export const signUpWithEmail = (
   dispatch(startLoading());
 
   if (!email || !password) {
-    showUserMessage('Lütfen zorunlu alanları doldurun');
+    showUserMessage('Please fill in all required fields');
     dispatch(stopLoading());
     return;
   }
 
-  auth()
-    .signInWithEmailAndPassword(email, password)
-    .then(res => {
-      console.log('Giris islemi basarili ' + res.user.email);
-      dispatch(setLoginMail(''));
-      dispatch(setLoginPassword(''));
-      showUserMessage('Giriş işlemi başarılı', 'info');
-      navigation.replace('Home');
-    })
-    .catch(err => {
-      showUserMessage(err);
-      dispatch(setLoginPassword(''));
-    })
-    .finally(() => {
-      dispatch(stopLoading());
-    });
+  try {
+    const res = await auth().createUserWithEmailAndPassword(email, password);
+    console.log(res);
+    navigation.pop();
+    navigation.replace('Home');
+    showUserMessage('Registration successful', 'info');
+  } catch (err: any) {
+    showUserMessage(err.message);
+  } finally {
+    dispatch(stopLoading());
+  }
 };
-
-export const signOutUser = (
+export const signUpWithEmail = async (
+  email: string,
+  password: string,
   navigation: NativeStackNavigationProp<StackParamList>,
   dispatch: Dispatch,
 ) => {
-  console.log('cikis yapilan hesap ' + auth().currentUser?.email);
-
   dispatch(startLoading());
-  auth()
-    .signOut()
-    .then(res => {
-      console.log('cikis basarili\naktif hesap: ' + auth().currentUser + res);
-      navigation.replace('Login');
-      showUserMessage('İşlem başarili', 'info');
-    })
-    .catch(err => {
-      console.log(err);
-      showUserMessage(err);
-    })
-    .finally(() => {
-      dispatch(stopLoading());
-    });
+
+  if (!email || !password) {
+    showUserMessage('Please fill in all required fields');
+    dispatch(stopLoading());
+    return;
+  }
+
+  try {
+    const res = await auth().signInWithEmailAndPassword(email, password);
+    console.log('Login successful ' + res.user.email);
+    dispatch(setLoginMail(''));
+    dispatch(setLoginPassword(''));
+    showUserMessage('Login successful', 'info');
+    navigation.replace('Home');
+  } catch (err: any) {
+    showUserMessage(err.message);
+    dispatch(setLoginPassword(''));
+  } finally {
+    dispatch(stopLoading());
+  }
+};
+
+export const signOutUser = async (
+  navigation: NativeStackNavigationProp<StackParamList>,
+  dispatch: Dispatch,
+) => {
+  dispatch(startLoading());
+
+  try {
+    await auth().signOut();
+    console.log('Sign out successful');
+    navigation.replace('Login');
+    showUserMessage('Logout successful', 'info');
+  } catch (err: any) {
+    console.log(err);
+    showUserMessage(err.message);
+  } finally {
+    dispatch(stopLoading());
+  }
 };

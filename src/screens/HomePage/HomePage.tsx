@@ -27,10 +27,11 @@ const HomePage = () => {
   const dispatch = useDispatch();
 
   const signOut = useAlert(
-    'Uyari',
-    'Çıkış yapmak istediğinize emin misiniz?',
+    'Warning',
+    'Are you sure you want to sign out?',
     () => signOutUser(navigation, dispatch),
   );
+
   function addToTaskPressButton() {
     addTaskToDatabase(inputValue, dispatch);
     setInputValue('');
@@ -47,24 +48,25 @@ const HomePage = () => {
           <View style={styles.logoContainer}>
             <Image
               source={require('../../assets/images/logo_list.png')}
-              style={[{width: width * 0.5, height: height * 0.3}]}
+              style={{width: width * 0.5, height: height * 0.3}}
               resizeMode="contain"
             />
           </View>
 
           <View style={styles.inputContainer}>
             <Input
-              placeHolder="Task giriniz"
+              inputMode="text"
+              placeHolder="Enter a task"
               value={inputValue}
               onChange={text => setInputValue(text)}
             />
 
             <MyButton
-              title="Taski ekle"
+              title="Add Task"
               onPress={addToTaskPressButton}
               theme="primary"
             />
-            <MyButton title="Çıkış Yap" onPress={signOut} theme="secondry" />
+            <MyButton title="Sign Out" onPress={signOut} theme="secondry" />
           </View>
         </SafeAreaView>
       </KeyboardAvoidingView>

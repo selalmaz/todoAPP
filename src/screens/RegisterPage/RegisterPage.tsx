@@ -39,7 +39,7 @@ const RegisterPage = () => {
                 <ActivityIndicator size="large" color="cyan" />
               ) : (
                 <MyButton
-                  title="Hesap Oluştur"
+                  title="Create Account"
                   theme="primary"
                   navigateTo="Home"
                   onPress={() =>

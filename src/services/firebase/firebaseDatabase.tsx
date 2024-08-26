@@ -33,7 +33,6 @@ export const fetchTaskData = async () => {
       .ref(currentUserID + '/')
       .once('value');
     const parsedData = parseTaskData(snapshot.val());
-    // console.log('User data: ', parsedData);
 
     return parsedData;
   } catch (err) {

@@ -40,13 +40,13 @@ const LoginPage = () => {
               <TouchableOpacity
                 onPress={() => navigation.navigate('Register')}
                 style={{alignSelf: 'flex-end'}}>
-                <Text style={style.signUpText}>Hesap Oluştur</Text>
+                <Text style={style.signUpText}>Create Account</Text>
               </TouchableOpacity>
               {isLoading ? (
                 <ActivityIndicator size="large" color="cyan" />
               ) : (
                 <MyButton
-                  title="Giriş Yap"
+                  title="Login"
                   onPress={() =>
                     signUpWithEmail(
                       loginMail,

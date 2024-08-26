@@ -49,13 +49,13 @@ export default function LoginRegisterHeader(props: authType) {
       <View style={style.inputContainer}>
         <Input
           inputMode="email"
-          placeHolder="Mail giriniz"
+          placeHolder="Email"
           value={mail}
           onChange={handleMail}
         />
         <Input
           inputMode="text"
-          placeHolder="Şifre giriniz"
+          placeHolder="Password"
           value={password}
           onChange={handlePassword}
           secureTextEntry
